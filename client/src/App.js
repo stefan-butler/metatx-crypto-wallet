@@ -9,7 +9,7 @@ function App() {
     const [amount, setAmount] = useState('');
 
     const checkBalance = async () => {
-        const provider = new ethers.providers.InfuraProvider('homestead', '<infura_ID>');
+        const provider = new ethers.providers.InfuraProvider('homestead', '<0a0548000d0b40d9b8973df53f5e11fa>');
         try {
             const bal = await provider.getBalance(address);
             setBalance(ethers.utils.formatEther(bal)); 

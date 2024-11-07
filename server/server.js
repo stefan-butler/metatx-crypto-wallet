@@ -10,7 +10,7 @@ app.use(express.json());
 
 app.post('/transfer', async(req, res) => {
     const { sender, recipient, amount } = req.body;
-    const provider = new ethers.providers.InfuraProvider('homestead', process.env.INFURA_PROJECT_ID);
+    const provider = new ethers.providers.InfuraProvider('homestead', process.env.0a0548000d0b40d9b8973df53f5e11fa);
 
     try {
         const signer = new ethers.Wallet('<MY_PRIVATE_KEY>', provider);
@@ -25,4 +25,4 @@ app.post('/transfer', async(req, res) => {
 });
 
 const PORT = 5000;
-app.listen(PORT, () => console.log(`Server running on `))
+app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
