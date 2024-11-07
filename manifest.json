@@ -1,6 +1,6 @@
 {
     "name": "MetaTx Wallet",
-    "description": "Transfer cryptocurrency to any walet",
+    "description": "A simple crypto wallet to check balance and transfer funds",
     "version": "1.0",
     "manifest_version": 3,
     "action": {
@@ -13,5 +13,5 @@
         "48": "metatx_logo.png",
         "128": "metatx_logo.png"
     },
-    "permissions": ["tabs", "bookmarks", "unlimitedStorage", "nativeMessaging"]
+    "permissions": ["storage", "activeTab"]
 }

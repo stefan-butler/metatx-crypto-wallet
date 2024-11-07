@@ -16,8 +16,30 @@ function App() {
 
     const transferFunds = async() => {
         try {
-            const response = await axios.post()
+            const response = await axios.post('http://localhost:5000/transfer', {
+                sender: address,
+                recipent,
+                amount
+            });
+            alert(response.data.message);
+        } catch (error) {
+            console.error(error);
+            alert("Transfer failed.");
         }
-    }
+    };
+
+    return (
+        <div>
+            <h1>MetaTx Wallet</h1>
+            <input placeholder="Sender Address" value={address} onChange={(e) => setAddress(e.target.value)} />
+            <button onClick={checkBalance}>Check Balance</button>
+            {balance && <p>Balance: {balance} ETH</p>}
+
+            <input placeholder='Recipient Address' value={recipent} onChange={(e) => setRecipent(e.target.value)} />
+            <input placeholder='Amount {ETH}' value={amount} onChange={(e) => setAmount(e.target.value)} />
+            <button onClick={transferFunds}>Transfer Funds</button>
+        </div>
+    );
 }
 
+export default App;
