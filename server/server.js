@@ -10,7 +10,7 @@ app.use(express.json());
 
 app.post('/transfer', async(req, res) => {
     const { sender, recipient, amount } = req.body;
-    const provider = new ethers.providers.InfuraProvider('homestead', process.env.0a0548000d0b40d9b8973df53f5e11fa);
+    const provider = new ethers.providers.InfuraProvider('homestead', process.env.INFURA_PROJECT_ID);
 
     try {
         const signer = new ethers.Wallet('<MY_PRIVATE_KEY>', provider);
