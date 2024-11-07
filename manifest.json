@@ -1,0 +1,17 @@
+{
+    "name": "MetaTx Wallet",
+    "description": "Transfer cryptocurrency to any walet",
+    "version": "1.0",
+    "manifest_version": 3,
+    "action": {
+        "default_popup": "index.jsx",
+        "default_icon": "metatx_logo.png"
+    },
+    "icon": {
+        "16": "metatx_logo.png",
+        "32": "metatx_logo.png",
+        "48": "metatx_logo.png",
+        "128": "metatx_logo.png"
+    },
+    "permissions": ["tabs", "bookmarks", "unlimitedStorage", "nativeMessaging"]
+}
