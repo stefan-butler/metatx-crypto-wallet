@@ -61,7 +61,7 @@ function App() {
 
     const checkBalance = async () => {
         if (!wallet) return alert("Please create or import a wallet first.");
-        const provider = new ethers.providers.InfuraProvider('homestead', '0a0548000d0b40d9b8973df53f5e11fa');
+        const provider = new ethers.providers.InfuraProvider('holesky', '0a0548000d0b40d9b8973df53f5e11fa');
         try {
             const bal = await provider.getBalance(address);
             setBalance(ethers.utils.formatEther(bal)); 
