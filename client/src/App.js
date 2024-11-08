@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { ethers } from 'ethers';
-import axios from 'axios';
 
 function App() {
     const [address, setAddress] = useState('');
@@ -24,16 +23,15 @@ function App() {
         setImportMessage('');
     }
 
-    const generateWalletFromMnemonic = (mnemonicInput) => {
+    const importWalletFromMnemonic = (mnemonicInput) => {
         if (!mnemonicInput.trim()) {
             setImportMessage("Error: Mnemonic cannot be empty");
             return;
         }
         try {
-            const walletFromMnemonic = ethers.Wallet.fromMnemonic(mnemonicInput);
+            const walletFromMnemonic = ethers.Wallet.fromMnemonic(mnemonicInput).connect(provider);
             setWallet(walletFromMnemonic);
             setAddress(walletFromMnemonic.address);
-            setPrivateKey('');
             setMnemonic('');
             setImportMessage('Wallet Imported from Mnemonic!');
         } catch (error) {
@@ -48,7 +46,7 @@ function App() {
             return;
         }
         try {
-            const importedWallet = new ethers.Wallet(privateKeyInput);
+            const importedWallet = new ethers.Wallet(privateKeyInput, provider);
             setWallet(importedWallet);
             setAddress(importedWallet.address);
             setPrivateKey('');
@@ -60,28 +58,27 @@ function App() {
     };
 
     const checkBalance = async () => {
-        if (!wallet) return alert("Please create or import a wallet first.");
-        const provider = new ethers.providers.InfuraProvider('holesky', '0a0548000d0b40d9b8973df53f5e11fa');
         try {
-            const bal = await provider.getBalance(address);
-            setBalance(ethers.utils.formatEther(bal)); 
+            const response = await fetch(`/balance?address=${address}`);
+            const data = await response.json();
+            setBalance(data.balance);
         } catch (error) {
-            console.error("Error fetching balance: ", error);
+            console.error("Error fetching balance:", error);
             alert("Failed to fetch balance.");
         }
     };
 
-    const transferFunds = async() => {
-        if (!wallet) return alert("Please create or import a wallet first.");
+    const transferFunds = async () => {
         try {
-            const response = await axios.post('http://localhost:5000/transfer', {
-                sender: address,
-                recipient,
-                amount
+            const response = await fetch('/transfer', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ recipient, amount })
             });
-            alert(response.data.message);
+            const data = await response.json();
+            alert(data.message);
         } catch (error) {
-            console.error(error);
+            console.error("Transfer error:", error);
             alert("Transfer failed.");
         }
     };
@@ -107,7 +104,7 @@ function App() {
                     value={mnemonic}
                     onChange={(e) => setMnemonic(e.target.value)}
                 />
-                <button onClick={() => generateWalletFromMnemonic(mnemonic)}>Import from Mnemonic</button>
+                <button onClick={() => importWalletFromMnemonic(mnemonic)}>Import from Mnemonic</button>
                 {importMessage === 'Wallet Imported from Mnemonic!' && <p>{importMessage}</p>}
                 {importMessage.startsWith("Error: Invalid mnemonic") && <p style={{ color: 'red' }}>{importMessage}</p>}
             </div>
