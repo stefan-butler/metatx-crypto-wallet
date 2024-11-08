@@ -103,7 +103,7 @@ function App() {
             {balance && <p>Balance: {balance} ETH</p>}
 
             {/* Transfer Funds */}
-            <input placeholder='Recipient Address' value={recipent} onChange={(e) => setRecipient(e.target.value)} />
+            <input placeholder='Recipient Address' value={recipient} onChange={(e) => setRecipient(e.target.value)} />
             <input placeholder='Amount {ETH}' value={amount} onChange={(e) => setAmount(e.target.value)} />
             <button onClick={transferFunds}>Transfer Funds</button>
         </div>
