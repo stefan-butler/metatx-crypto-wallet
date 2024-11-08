@@ -4,40 +4,57 @@ import axios from 'axios';
 
 function App() {
     const [address, setAddress] = useState('');
-    const [balance, setBalance] = useState(null);
+    const [balance, setBalance] = useState('');
     const [recipient, setRecipient] = useState('');
     const [amount, setAmount] = useState('');
     const [mnemonic, setMnemonic] = useState('');
     const [privateKey, setPrivateKey] = useState('');
-    const [wallet, setWallet] = useState(null);
+    const [wallet, setWallet] = useState('');
+    const [importMessage, setImportMessage] = useState('');
+    const [newWalletInfo, setNewWalletInfo] = useState(null);
 
     const generateNewWallet = () => {
         const newWallet =  ethers.Wallet.createRandom();
         setWallet(newWallet);
-        setPrivateKey(newWallet.privateKey);
-        setAddress(newWallet.address);
-        setMnemonic(newWallet.mnemonic.phrase);
+        setNewWalletInfo({
+            mnemonic: newWallet.mnemonic.phrase,
+            privateKey: newWallet.privateKey,
+            address: newWallet.address,
+        });
+        setImportMessage('');
     }
 
     const generateWalletFromMnemonic = (mnemonicInput) => {
+        if (!mnemonicInput.trim()) {
+            setImportMessage("Error: Mnemonic cannot be empty");
+            return;
+        }
         try {
             const walletFromMnemonic = ethers.Wallet.fromMnemonic(mnemonicInput);
             setWallet(walletFromMnemonic);
-            setPrivateKey(walletFromMnemonic.privateKey);
             setAddress(walletFromMnemonic.address);
+            setPrivateKey('');
+            setMnemonic('');
+            setImportMessage('Wallet Imported from Mnemonic!');
         } catch (error) {
-            alert("Invalid mnemonic");
+            setImportMessage("Error: Invalid mnemonic");
             console.error("Error generating wallet from mnemonic:", error);
         }
     }
 
     const importWalletFromPrivateKey = (privateKeyInput) => {
+        if (!privateKeyInput.trim()) { 
+            setImportMessage("Error: Private key cannot be empty");
+            return;
+        }
         try {
             const importedWallet = new ethers.Wallet(privateKeyInput);
             setWallet(importedWallet);
             setAddress(importedWallet.address);
+            setPrivateKey('');
+            setImportMessage('Wallet Imported from Private Key!');
         } catch (error) {
-            alert("Invalid private key");
+            setImportMessage("Error: Invalid private key");
             console.error("Error importing wallet:", error);
         }
     };
@@ -75,26 +92,36 @@ function App() {
 
             {/* Generate New Wallet */}
             <button onClick={generateNewWallet}>Generate New Wallet</button>
-            {mnemonic && <p>Mnemonic: {mnemonic}</p>}
-            {privateKey && <p>Private Key: {privateKey}</p>}
-            {address && <p>Address: {address}</p>}
+            {newWalletInfo && (
+                <>
+                    <p>Mnemonic: {newWalletInfo.mnemonic}</p>
+                    <p>Private Key: {newWalletInfo.privateKey}</p>
+                    <p>Address: {newWalletInfo.address}</p>
+                </>
+            )}
 
             {/* Enter Mnemonic */}
             <div>
                 <input
                     placeholder="Enter mnemonic to import wallet"
+                    value={mnemonic}
                     onChange={(e) => setMnemonic(e.target.value)}
                 />
                 <button onClick={() => generateWalletFromMnemonic(mnemonic)}>Import from Mnemonic</button>
+                {importMessage === 'Wallet Imported from Mnemonic!' && <p>{importMessage}</p>}
+                {importMessage.startsWith("Error: Invalid mnemonic") && <p style={{ color: 'red' }}>{importMessage}</p>}
             </div>
 
             {/* Enter Private Key */}
             <div>
                 <input
                     placeholder="Enter private key to import wallet"
+                    value={privateKey}
                     onChange={(e) => setPrivateKey(e.target.value)}
                 />
                 <button onClick={() => importWalletFromPrivateKey(privateKey)}>Import from Private Key</button>
+                {importMessage === 'Wallet Imported from Private Key!' && <p>{importMessage}</p>}
+                {importMessage.startsWith("Error: Invalid private key") && <p style={{ color: 'red' }}>{importMessage}</p>}
             </div>
 
             {/* Check Balance */}
