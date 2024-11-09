@@ -16,7 +16,7 @@ backend:
 
 6. securely manage sensitive info ✅
 7. provide /balance endpoint ✅
-8. provide /transfer endpoint ❓
+8. provide /transfer endpoint ✅
 
 project management >>>
 
