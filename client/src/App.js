@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { ethers } from 'ethers';
 
 function App() {
+    const { InfuraProvider } = ethers.providers;
+    const [provider] = useState(() => new InfuraProvider('sepolia', process.env.INFURA_PROJECT_ID));
+    
     const [address, setAddress] = useState('');
     const [balance, setBalance] = useState('');
     const [recipient, setRecipient] = useState('');
@@ -59,12 +62,14 @@ function App() {
 
     const checkBalance = async () => {
         try {
-            const response = await fetch(`/balance?address=${address}`);
+            const response = await fetch(`http://localhost:5002/balance?address=${wallet.address}`);
+            if (!response.ok) throw new Error(`Error: ${response.status}`);
             const data = await response.json();
             setBalance(data.balance);
+            console.log("Balance:", data.balance);
         } catch (error) {
             console.error("Error fetching balance:", error);
-            alert("Failed to fetch balance.");
+            alert("Failed to fetch balance.")
         }
     };
 

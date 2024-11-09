@@ -1,16 +1,22 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const { ethers } = require('ethers');
-const app = express();
+const cors = require('cors');
 require('dotenv').config();
+// console.log(process.env.MONGODB_URI);
+// console.log(process.env.INFURA_PROJECT_ID);
+// console.log(process.env.MY_PRIVATE_KEY);
 
-mongoose.connect('MONGODB_URI', {}).then(() => {
+const app = express();
+
+app.use(express.json());
+app.use(cors());
+
+mongoose.connect(process.env.MONGODB_URI, {}).then(() => {
     console.log("MongoDB connected successfully");
 }).catch((error) => {
     console.error("MongoDB connection error:", error);
 });
-
-app.use(express.json());
 
 app.get('/', (req, res) => {
     res.send("Welcome to the MetaTx Wallet API!");
@@ -18,11 +24,11 @@ app.get('/', (req, res) => {
 
 app.get('/balance', async (req, res) => {
     const { address } = req.query;
-    const provider = new ethers.providers.InfuraProvider('holesky', process.env.INFURA_PROJECT_ID);
+    const provider = new ethers.InfuraProvider('sepolia', process.env.INFURA_PROJECT_ID);
 
     try {
         const balance = await provider.getBalance(address);
-        res.json({ balance: ethers.utils.formatEther(balance) });
+        res.json({ balance: ethers.formatEther(balance) });
     } catch (error) {
         res.status(500).json({ message: 'Error fetching balance', error: error.message });
     }
@@ -30,13 +36,13 @@ app.get('/balance', async (req, res) => {
 
 app.post('/transfer', async(req, res) => {
     const { recipient, amount } = req.body;
-    const provider = new ethers.providers.InfuraProvider('holesky', process.env.INFURA_PROJECT_ID);
+    const provider = new ethers.InfuraProvider('sepolia', process.env.INFURA_PROJECT_ID);
     const wallet = new ethers.Wallet(process.env.MY_PRIVATE_KEY, provider);
 
     try {
         const tx = await wallet.sendTransaction({
             to: recipient,
-            value: ethers.utils.parseEther(amount)
+            value: ethers.parseEther(amount)
         });
         await tx.wait();
         res.json({ message: 'Transfer successful!', txHash: tx.hash });
@@ -45,5 +51,5 @@ app.post('/transfer', async(req, res) => {
     }
 });
 
-const PORT = process.env.PORT || 5001;
-app.listen(PORT, () => console.log(`Server running on ${PORT}`))
+const PORT = process.env.PORT || 5002;
+app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`))
