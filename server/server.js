@@ -3,14 +3,11 @@ const mongoose = require('mongoose');
 const { ethers } = require('ethers');
 const cors = require('cors');
 require('dotenv').config();
-// console.log(process.env.MONGODB_URI);
-// console.log(process.env.INFURA_PROJECT_ID);
-// console.log(process.env.MY_PRIVATE_KEY);
 
 const app = express();
 
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
 
 mongoose.connect(process.env.MONGODB_URI, {}).then(() => {
     console.log("MongoDB connected successfully");

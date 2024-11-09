@@ -10,7 +10,7 @@ front-end:
 2.  import from mnemonic ✅
 3.  import from private key ✅
 4.  check balance ✅
-5.  transfer funds ❓
+5.  transfer funds ✅
 
 backend:
 

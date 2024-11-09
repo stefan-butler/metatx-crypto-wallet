@@ -11,13 +11,12 @@ function App() {
     const [amount, setAmount] = useState('');
     const [mnemonic, setMnemonic] = useState('');
     const [privateKey, setPrivateKey] = useState('');
-    const [wallet, setWallet] = useState('');
     const [importMessage, setImportMessage] = useState('');
     const [newWalletInfo, setNewWalletInfo] = useState(null);
+    const [txHash, setTxHash] = useState('');
 
     const generateNewWallet = () => {
         const newWallet =  ethers.Wallet.createRandom();
-        setWallet(newWallet);
         setNewWalletInfo({
             mnemonic: newWallet.mnemonic.phrase,
             privateKey: newWallet.privateKey,
@@ -33,7 +32,6 @@ function App() {
         }
         try {
             const walletFromMnemonic = ethers.Wallet.fromMnemonic(mnemonicInput).connect(provider);
-            setWallet(walletFromMnemonic);
             setAddress(walletFromMnemonic.address);
             setMnemonic('');
             setImportMessage('Wallet Imported from Mnemonic!');
@@ -50,7 +48,6 @@ function App() {
         }
         try {
             const importedWallet = new ethers.Wallet(privateKeyInput, provider);
-            setWallet(importedWallet);
             setAddress(importedWallet.address);
             setPrivateKey('');
             setImportMessage('Wallet Imported from Private Key!');
@@ -62,7 +59,7 @@ function App() {
 
     const checkBalance = async () => {
         try {
-            const response = await fetch(`http://localhost:5002/balance?address=${wallet.address}`);
+            const response = await fetch(`http://localhost:5002/balance?address=${address}`);
             if (!response.ok) throw new Error(`Error: ${response.status}`);
             const data = await response.json();
             setBalance(data.balance);
@@ -75,13 +72,15 @@ function App() {
 
     const transferFunds = async () => {
         try {
-            const response = await fetch('/transfer', {
+            const response = await fetch('http://localhost:5002/transfer', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ recipient, amount })
             });
             const data = await response.json();
             alert(data.message);
+            setImportMessage(data.message);
+            setTxHash(data.txHash);
         } catch (error) {
             console.error("Transfer error:", error);
             alert("Transfer failed.");
@@ -135,6 +134,9 @@ function App() {
             <input placeholder='Recipient Address' value={recipient} onChange={(e) => setRecipient(e.target.value)} />
             <input placeholder='Amount {ETH}' value={amount} onChange={(e) => setAmount(e.target.value)} />
             <button onClick={transferFunds}>Transfer Funds</button>
+            {importMessage === 'Transfer successful!' && txHash && (
+                <p>{`${importMessage} Your transaction hash is ${txHash}`}</p>
+            )}        
         </div>
     );
 }
