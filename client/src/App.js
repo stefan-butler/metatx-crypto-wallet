@@ -96,9 +96,7 @@ function App() {
                     console.error("Runtime error:", chrome.runtime.lastError.message);
                     alert("Transfer failed.");
                     return;
-                }
-    
-                if (response.error) {
+                } else if (response.error) {
                     console.error("Transfer error:", response.error);
                     alert("Transfer failed.");
                 } else {

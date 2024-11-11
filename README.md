@@ -20,9 +20,9 @@ backend:
 
 project management >>>
 
-8.  Infura node API key ✅
-9.  logo design ✅
-10. Sepolia testnet ✅
-11. UI design
-12. UI -> front-end CSS
-13. chrome extension
+9.  Infura node API key ✅
+10. logo design ✅
+11. Sepolia testnet ✅
+12. chrome extension ✅
+13. UI design
+14. UI -> front-end CSS
