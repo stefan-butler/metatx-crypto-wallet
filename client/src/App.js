@@ -57,24 +57,17 @@ function App() {
         }
     };
 
-    // const checkBalance = async () => {
-    //     try {
-    //         const response = await fetch(`http://localhost:5002/balance?address=${address}`);
-    //         if (!response.ok) throw new Error(`Error: ${response.status}`);
-    //         const data = await response.json();
-    //         setBalance(data.balance);
-    //         console.log("Balance:", data.balance);
-    //     } catch (error) {
-    //         console.error("Error fetching balance:", error);
-    //         alert("Failed to fetch balance.")
-    //     }
-    // };
     const checkBalance = async () => {
         chrome.runtime.sendMessage({ type: 'CHECK_BALANCE', address }, (response) => {
-            if (response.error) {
-                alert("Failed to fetch balance.");
-            } else {
+            if (chrome.runtime.lastError) {
+                console.error("Runtime error:", chrome.runtime.lastError.message);
+            } else if (response && response.error) {
+                console.error("Error received:", response.error);
+            } else if (response && response.balance) {
                 setBalance(response.balance);
+                console.log("Balance received:", response.balance);
+            } else {
+                console.error("Unexpected response:", response);
             }
         });
     };
@@ -99,11 +92,21 @@ function App() {
         chrome.runtime.sendMessage(
             { type: 'TRANSFER_FUNDS', recipient, amount },
             (response) => {
+                if (chrome.runtime.lastError) {
+                    console.error("Runtime error:", chrome.runtime.lastError.message);
+                    alert("Transfer failed.");
+                    return;
+                }
+    
                 if (response.error) {
+                    console.error("Transfer error:", response.error);
                     alert("Transfer failed.");
                 } else {
                     alert(response.message);
-                    setTxHash(response.txHash);
+                    setImportMessage('Transfer successful!');
+                    setTxHash(response.txHash); 
+                    console.log("Import message set to:", 'Transfer successful!'); 
+                    console.log("Transaction hash set to:", response.txHash); 
                 }
             }
         );
@@ -156,9 +159,9 @@ function App() {
             <input placeholder='Recipient Address' value={recipient} onChange={(e) => setRecipient(e.target.value)} />
             <input placeholder='Amount {ETH}' value={amount} onChange={(e) => setAmount(e.target.value)} />
             <button onClick={transferFunds}>Transfer Funds</button>
-            {importMessage === 'Transfer successful!' && txHash && (
-                <p>{`${importMessage} Your transaction hash is ${txHash}`}</p>
-            )}        
+            {importMessage && (
+                <p>{importMessage} {txHash && `Your transaction hash is ${txHash}`}</p>
+            )}
         </div>
     );
 }

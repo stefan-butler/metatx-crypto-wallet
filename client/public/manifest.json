@@ -26,5 +26,8 @@
           "matches": ["<all_urls>"],
           "js": ["content.js"]
         }
-    ]
+    ],
+    "content_security_policy": {
+        "extension_pages": "script-src 'self'; object-src 'self'; connect-src http://localhost:5002 https://optimism-sepolia.infura.io"
+    }
 }
