@@ -57,34 +57,56 @@ function App() {
         }
     };
 
+    // const checkBalance = async () => {
+    //     try {
+    //         const response = await fetch(`http://localhost:5002/balance?address=${address}`);
+    //         if (!response.ok) throw new Error(`Error: ${response.status}`);
+    //         const data = await response.json();
+    //         setBalance(data.balance);
+    //         console.log("Balance:", data.balance);
+    //     } catch (error) {
+    //         console.error("Error fetching balance:", error);
+    //         alert("Failed to fetch balance.")
+    //     }
+    // };
     const checkBalance = async () => {
-        try {
-            const response = await fetch(`http://localhost:5002/balance?address=${address}`);
-            if (!response.ok) throw new Error(`Error: ${response.status}`);
-            const data = await response.json();
-            setBalance(data.balance);
-            console.log("Balance:", data.balance);
-        } catch (error) {
-            console.error("Error fetching balance:", error);
-            alert("Failed to fetch balance.")
-        }
+        chrome.runtime.sendMessage({ type: 'CHECK_BALANCE', address }, (response) => {
+            if (response.error) {
+                alert("Failed to fetch balance.");
+            } else {
+                setBalance(response.balance);
+            }
+        });
     };
 
+    // const transferFunds = async () => {
+    //     try {
+    //         const response = await fetch('http://localhost:5002/transfer', {
+    //             method: 'POST',
+    //             headers: { 'Content-Type': 'application/json' },
+    //             body: JSON.stringify({ recipient, amount })
+    //         });
+    //         const data = await response.json();
+    //         alert(data.message);
+    //         setImportMessage(data.message);
+    //         setTxHash(data.txHash);
+    //     } catch (error) {
+    //         console.error("Transfer error:", error);
+    //         alert("Transfer failed.");
+    //     }
+    // };
     const transferFunds = async () => {
-        try {
-            const response = await fetch('http://localhost:5002/transfer', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ recipient, amount })
-            });
-            const data = await response.json();
-            alert(data.message);
-            setImportMessage(data.message);
-            setTxHash(data.txHash);
-        } catch (error) {
-            console.error("Transfer error:", error);
-            alert("Transfer failed.");
-        }
+        chrome.runtime.sendMessage(
+            { type: 'TRANSFER_FUNDS', recipient, amount },
+            (response) => {
+                if (response.error) {
+                    alert("Transfer failed.");
+                } else {
+                    alert(response.message);
+                    setTxHash(response.txHash);
+                }
+            }
+        );
     };
 
     return (

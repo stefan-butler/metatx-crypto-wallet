@@ -1,0 +1,30 @@
+{
+    "name": "MetaTx Wallet",
+    "description": "A simple crypto wallet to check balance and transfer funds",
+    "version": "1.0",
+    "manifest_version": 3,
+    "action": {
+        "default_popup": "popup.html",
+        "default_icon": "metatx_logo.png"
+    },
+    "icons": {
+        "16": "metatx_logo.png",
+        "32": "metatx_logo.png",
+        "48": "metatx_logo.png",
+        "128": "metatx_logo.png"
+    },
+    "permissions": ["storage", "tabs", "activeTab", "clipboardWrite"],
+    "host_permissions": [
+        "https://optimism-sepolia.infura.io/v3/*",
+        "http://localhost:5002/*"
+      ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "content_scripts": [
+        {
+          "matches": ["<all_urls>"],
+          "js": ["content.js"]
+        }
+    ]
+}
