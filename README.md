@@ -26,3 +26,5 @@ project management >>>
 12. chrome extension ✅
 13. UI design
 14. UI -> front-end CSS
+15. Demo Video Editing
+16. ReadME polishment

@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import { ethers } from 'ethers';
+import TransferFunds from './components/TransferFunds';
+import ImportWallet from './components/ImportWallet';
+import GenerateWallet from './components/GenerateWallet';
+import BottomNav from './components/BottomNav';
 
 function App() {
     const { InfuraProvider } = ethers.providers;
     const [provider] = useState(() => new InfuraProvider('sepolia', process.env.INFURA_PROJECT_ID));
     
+    const [activeSection, setActiveSection] = useState('transfer');
     const [address, setAddress] = useState('');
     const [balance, setBalance] = useState('');
     const [recipient, setRecipient] = useState('');
@@ -71,23 +76,7 @@ function App() {
             }
         });
     };
-
-    // const transferFunds = async () => {
-    //     try {
-    //         const response = await fetch('http://localhost:5002/transfer', {
-    //             method: 'POST',
-    //             headers: { 'Content-Type': 'application/json' },
-    //             body: JSON.stringify({ recipient, amount })
-    //         });
-    //         const data = await response.json();
-    //         alert(data.message);
-    //         setImportMessage(data.message);
-    //         setTxHash(data.txHash);
-    //     } catch (error) {
-    //         console.error("Transfer error:", error);
-    //         alert("Transfer failed.");
-    //     }
-    // };
+    
     const transferFunds = async () => {
         chrome.runtime.sendMessage(
             { type: 'TRANSFER_FUNDS', recipient, amount },
@@ -111,55 +100,48 @@ function App() {
     };
 
     return (
-        <div>
-            <h1>MetaTx Wallet</h1>
+        <div className="min-h-screen flex flex-col justify-between bg-white">
+            <header className="p-4 bg-gray-800 text-white text-center">
+                <h1 className="text-2xl font-bold">MetaTx Wallet</h1>
+                <p>{address}</p>
+            </header>
+            
+            <main className="flex-grow">
+                {activeSection === 'transfer' && (
+                    <TransferFunds 
+                        address={address}
+                        setAddress={setAddress}
+                        balance={balance}
+                        setBalance={setBalance}
+                        checkBalance={checkBalance}
+                        recipient={recipient}
+                        setRecipient={setRecipient}
+                        amount={amount}
+                        setAmount={setAmount}
+                        transferFunds={transferFunds}
+                        txHash={txHash}
+                    />
+                )}
+                {activeSection === 'import' && (
+                    <ImportWallet 
+                        mnemonic={mnemonic}
+                        setMnemonic={setMnemonic}
+                        privateKey={privateKey}
+                        setPrivateKey={setPrivateKey}
+                        importWalletFromMnemonic={importWalletFromMnemonic}
+                        importWalletFromPrivateKey={importWalletFromPrivateKey}
+                        importMessage={importMessage}
+                    />
+                )}
+                {activeSection === 'generate' && (
+                    <GenerateWallet 
+                        generateNewWallet={generateNewWallet}
+                        newWalletInfo={newWalletInfo}
+                    />
+                )}
+            </main>
 
-            {/* Generate New Wallet */}
-            <button onClick={generateNewWallet}>Generate New Wallet</button>
-            {newWalletInfo && (
-                <>
-                    <p>Mnemonic: {newWalletInfo.mnemonic}</p>
-                    <p>Private Key: {newWalletInfo.privateKey}</p>
-                    <p>Address: {newWalletInfo.address}</p>
-                </>
-            )}
-
-            {/* Enter Mnemonic */}
-            <div>
-                <input
-                    placeholder="Enter mnemonic to import wallet"
-                    value={mnemonic}
-                    onChange={(e) => setMnemonic(e.target.value)}
-                />
-                <button onClick={() => importWalletFromMnemonic(mnemonic)}>Import from Mnemonic</button>
-                {importMessage === 'Wallet Imported from Mnemonic!' && <p>{importMessage}</p>}
-                {importMessage.startsWith("Error: Invalid mnemonic") && <p style={{ color: 'red' }}>{importMessage}</p>}
-            </div>
-
-            {/* Enter Private Key */}
-            <div>
-                <input
-                    placeholder="Enter private key to import wallet"
-                    value={privateKey}
-                    onChange={(e) => setPrivateKey(e.target.value)}
-                />
-                <button onClick={() => importWalletFromPrivateKey(privateKey)}>Import from Private Key</button>
-                {importMessage === 'Wallet Imported from Private Key!' && <p>{importMessage}</p>}
-                {importMessage.startsWith("Error: Invalid private key") && <p style={{ color: 'red' }}>{importMessage}</p>}
-            </div>
-
-            {/* Check Balance */}
-            <input placeholder="Sender Address" value={address} onChange={(e) => setAddress(e.target.value)} />
-            <button onClick={checkBalance}>Check Balance</button>
-            {balance && <p>Balance: {balance} ETH</p>}
-
-            {/* Transfer Funds */}
-            <input placeholder='Recipient Address' value={recipient} onChange={(e) => setRecipient(e.target.value)} />
-            <input placeholder='Amount {ETH}' value={amount} onChange={(e) => setAmount(e.target.value)} />
-            <button onClick={transferFunds}>Transfer Funds</button>
-            {importMessage && (
-                <p>{importMessage} {txHash && `Your transaction hash is ${txHash}`}</p>
-            )}
+            <BottomNav setActiveSection={setActiveSection} />
         </div>
     );
 }
