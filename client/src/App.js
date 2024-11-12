@@ -107,19 +107,10 @@ function App() {
             </header>
             
             <main className="flex-grow">
-                {activeSection === 'transfer' && (
-                    <TransferFunds 
-                        address={address}
-                        setAddress={setAddress}
-                        balance={balance}
-                        setBalance={setBalance}
-                        checkBalance={checkBalance}
-                        recipient={recipient}
-                        setRecipient={setRecipient}
-                        amount={amount}
-                        setAmount={setAmount}
-                        transferFunds={transferFunds}
-                        txHash={txHash}
+                {activeSection === 'generate' && (
+                    <GenerateWallet 
+                        generateNewWallet={generateNewWallet}
+                        newWalletInfo={newWalletInfo}
                     />
                 )}
                 {activeSection === 'import' && (
@@ -133,10 +124,19 @@ function App() {
                         importMessage={importMessage}
                     />
                 )}
-                {activeSection === 'generate' && (
-                    <GenerateWallet 
-                        generateNewWallet={generateNewWallet}
-                        newWalletInfo={newWalletInfo}
+                {activeSection === 'transfer' && (
+                    <TransferFunds 
+                        address={address}
+                        setAddress={setAddress}
+                        balance={balance}
+                        setBalance={setBalance}
+                        checkBalance={checkBalance}
+                        recipient={recipient}
+                        setRecipient={setRecipient}
+                        amount={amount}
+                        setAmount={setAmount}
+                        transferFunds={transferFunds}
+                        txHash={txHash}
                     />
                 )}
             </main>
