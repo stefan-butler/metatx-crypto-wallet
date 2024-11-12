@@ -4,7 +4,7 @@ function TransferFunds({ address, setAddress, balance, checkBalance, recipient, 
     return (
         <div className="p-4 flex flex-col items-center">
             <div className="flex items-center justify-between w-4/5 mb-4">
-                <h2 className="text-xl font-bold text-gray-800">Balance</h2>
+                <h2 className="text-xl font-bold text-gray-800">BALANCE</h2>
                 <button 
                     onClick={checkBalance} 
                     className="bg-purple-500 text-white px-4 py-2 rounded-md hover:bg-purple-600 focus:outline-none"
