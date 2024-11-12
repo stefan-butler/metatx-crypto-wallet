@@ -17,3 +17,6 @@ MetaTx Wallet is designed to handle core Ethereum transactions with simplicity a
 - **Back-end**: MongoDB, Express
 - **Blockchain**: Ether.js, Infura, Sepolia Testnet (Ethereum)
 - **Chrome Extension**: CRXJS + Vite
+
+## Product Demo
+[Watch the demo video on YouTube](https://www.youtube.com/watch?v=your_video_id)
