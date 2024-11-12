@@ -9,7 +9,7 @@ function App() {
     const { InfuraProvider } = ethers.providers;
     const [provider] = useState(() => new InfuraProvider('sepolia', process.env.INFURA_PROJECT_ID));
     
-    const [activeSection, setActiveSection] = useState('transfer');
+    const [activeSection, setActiveSection] = useState('generate');
     const [address, setAddress] = useState('');
     const [balance, setBalance] = useState('');
     const [recipient, setRecipient] = useState('');
@@ -27,7 +27,7 @@ function App() {
             privateKey: newWallet.privateKey,
             address: newWallet.address,
         });
-        setImportMessage('');
+        setImportMessage('New Wallet Generated! Your New Wallet is:');
     }
 
     const importWalletFromMnemonic = (mnemonicInput) => {
@@ -111,6 +111,7 @@ function App() {
                     <GenerateWallet 
                         generateNewWallet={generateNewWallet}
                         newWalletInfo={newWalletInfo}
+                        importMessage={importMessage}
                     />
                 )}
                 {activeSection === 'import' && (
