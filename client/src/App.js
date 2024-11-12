@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { ethers } from 'ethers';
-import TransferFunds from './components/TransferFunds';
-import ImportWallet from './components/ImportWallet';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+
+import HomePage from './components/HomePage';
 import GenerateWallet from './components/GenerateWallet';
+import ImportWallet from './components/ImportWallet';
+import TransferFunds from './components/TransferFunds';
 import BottomNav from './components/BottomNav';
 import MetaTxText from './icons/MetaTx_text';
 
@@ -103,51 +106,66 @@ function App() {
     };
 
     return (
-        <div className="min-h-screen flex flex-col justify-between bg-white">
-            <header className="bg-nav-color px-3 py-3 pl-14 pr-14 text-gray-800 flex items-center justify-between">
-                <MetaTxText/>
-                <img src="/metatx_logo.png" alt="MetaTx Logo" className="w-10 h-10" />
-            </header>
-            
-            <main className="flex-grow">
-                {activeSection === 'generate' && (
-                    <GenerateWallet 
-                        generateNewWallet={generateNewWallet}
-                        newWalletInfo={newWalletInfo}
-                        generateMessage={generateMessage}
-                    />
-                )}
-                {activeSection === 'import' && (
-                    <ImportWallet 
-                        mnemonic={mnemonic}
-                        setMnemonic={setMnemonic}
-                        privateKey={privateKey}
-                        setPrivateKey={setPrivateKey}
-                        importWalletFromMnemonic={importWalletFromMnemonic}
-                        importWalletFromPrivateKey={importWalletFromPrivateKey}
-                        importMessage={importMessage}
-                        address={address}
-                    />
-                )}
-                {activeSection === 'transfer' && (
-                    <TransferFunds 
-                        address={address}
-                        setAddress={setAddress}
-                        balance={balance}
-                        setBalance={setBalance}
-                        checkBalance={checkBalance}
-                        recipient={recipient}
-                        setRecipient={setRecipient}
-                        amount={amount}
-                        setAmount={setAmount}
-                        transferFunds={transferFunds}
-                        txHash={txHash}
-                    />
-                )}
-            </main>
+        <Router>
+            <div className="min-h-screen flex flex-col justify-between bg-white">
+                <header className="bg-nav-color px-3 py-3 pl-14 pr-14 text-gray-800 flex items-center justify-between">
+                    <MetaTxText/>
+                    <img src="/metatx_logo.png" alt="MetaTx Logo" className="w-10 h-10" />
+                </header>
+                
+                <main className="flex-grow">
+                    <Routes>
+                        <Route path="/" element={<HomePage />} />
+                        <Route 
+                            path="/generate" 
+                            element={
+                                <GenerateWallet 
+                                    generateNewWallet={generateNewWallet}
+                                    newWalletInfo={newWalletInfo}
+                                    generateMessage={generateMessage}
+                                />
+                            } 
+                        />
+                        <Route 
+                            path="/import" 
+                            element={
+                                <ImportWallet 
+                                    mnemonic={mnemonic}
+                                    setMnemonic={setMnemonic}
+                                    privateKey={privateKey}
+                                    setPrivateKey={setPrivateKey}
+                                    importWalletFromMnemonic={importWalletFromMnemonic}
+                                    importWalletFromPrivateKey={importWalletFromPrivateKey}
+                                    importMessage={importMessage}
+                                    address={address}
+                                />
+                            } 
+                        />
+                        <Route 
+                            path="/transfer" 
+                            element={
+                                <TransferFunds 
+                                    address={address}
+                                    setAddress={setAddress}
+                                    balance={balance}
+                                    setBalance={setBalance}
+                                    checkBalance={checkBalance}
+                                    recipient={recipient}
+                                    setRecipient={setRecipient}
+                                    amount={amount}
+                                    setAmount={setAmount}
+                                    transferFunds={transferFunds}
+                                    txHash={txHash}
+                                />
+                            } 
+                        />
+                        <Route path="*" element={<Navigate to="/" />} />
+                    </Routes>
+                </main>
 
-            <BottomNav setActiveSection={setActiveSection} />
-        </div>
+                <BottomNav setActiveSection={setActiveSection} />
+            </div>
+        </Router>
     );
 }
 
