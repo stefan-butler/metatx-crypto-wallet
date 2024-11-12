@@ -3,7 +3,7 @@ import React from 'react';
 function GenerateWallet({ generateNewWallet, newWalletInfo, generateMessage }) {
     return (
         <div className="p-4 flex flex-col items-center">
-            <div className="flex items-center justify-between w-4/5 mb-4">
+            <div className="flex items-center justify-between w-4/5 py-4">
                 <h2 className="text-2xl font-bold text-gray-800">GENERATE</h2>
                 <button 
                     onClick={generateNewWallet} 
@@ -20,22 +20,14 @@ function GenerateWallet({ generateNewWallet, newWalletInfo, generateMessage }) {
                 </div>
             )}
             
-        {/* Address Div */}
-        <div className="w-4/5 space-y-6">
-            <div>
-                <p className="font-bold text-gray-700 mb-1 text-base">Address</p>
-                <div className="bg-gray-100 p-4 rounded-md shadow-md flex items-center justify-between">
-                    <span className="font-mono text-sm break-all flex-1">{newWalletInfo?.address || ''}</span>
-                </div>
-            </div>
-
-            {/* Private Key Div */}
-            <div>
-                <p className="font-bold text-gray-700 mb-1 text-base">Private Key</p>
-                    <div className="bg-gray-100 p-4 rounded-md shadow-md flex items-center justify-between">
-                        <span className="font-mono text-sm break-all flex-1">{newWalletInfo?.privateKey || ''}</span>
+                {/* Address Div */}
+                <div className="w-4/5 space-y-6">
+                    <div>
+                        <p className="font-bold text-gray-700 mb-1 text-base">Address</p>
+                        <div className="bg-gray-100 p-4 rounded-md shadow-md flex items-center justify-between">
+                            <span className="font-mono text-sm break-all flex-1">{newWalletInfo?.address || ''}</span>
+                        </div>
                     </div>
-                </div>
 
                 {/* Mnemonic Div */}
                 <div>
@@ -44,6 +36,15 @@ function GenerateWallet({ generateNewWallet, newWalletInfo, generateMessage }) {
                         <span className="font-mono text-sm break-all flex-1">{newWalletInfo?.mnemonic || ''}</span>
                     </div>
                 </div>
+
+                {/* Private Key Div */}
+                <div>
+                    <p className="font-bold text-gray-700 mb-1 text-base">Private Key</p>
+                    <div className="bg-gray-100 p-4 rounded-md shadow-md flex items-center justify-between">
+                        <span className="font-mono text-sm break-all flex-1">{newWalletInfo?.privateKey || ''}</span>
+                    </div>
+                </div>
+
             </div>
         </div>
     );
