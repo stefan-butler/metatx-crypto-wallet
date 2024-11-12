@@ -23,7 +23,7 @@ function GenerateWallet({ generateNewWallet, newWalletInfo, generateMessage }) {
         {/* Address Div */}
         <div className="w-4/5 space-y-6">
             <div>
-                <p className="font-bold text-gray-700 mb-1">Address:</p>
+                <p className="font-bold text-gray-700 mb-1 text-base">Address</p>
                 <div className="bg-gray-100 p-4 rounded-md shadow-md flex items-center justify-between">
                     <span className="font-mono text-sm break-all flex-1">{newWalletInfo?.address || ''}</span>
                 </div>
@@ -31,7 +31,7 @@ function GenerateWallet({ generateNewWallet, newWalletInfo, generateMessage }) {
 
             {/* Private Key Div */}
             <div>
-                <p className="font-bold text-gray-700 mb-1">Private Key:</p>
+                <p className="font-bold text-gray-700 mb-1 text-base">Private Key</p>
                     <div className="bg-gray-100 p-4 rounded-md shadow-md flex items-center justify-between">
                         <span className="font-mono text-sm break-all flex-1">{newWalletInfo?.privateKey || ''}</span>
                     </div>
@@ -39,7 +39,7 @@ function GenerateWallet({ generateNewWallet, newWalletInfo, generateMessage }) {
 
                 {/* Mnemonic Div */}
                 <div>
-                    <p className="font-bold text-gray-700 mb-1">Mnemonic:</p>
+                    <p className="font-bold text-gray-700 mb-1 text-base">Mnemonic</p>
                     <div className="bg-gray-100 p-4 rounded-md shadow-md flex items-center justify-between">
                         <span className="font-mono text-sm break-all flex-1">{newWalletInfo?.mnemonic || ''}</span>
                     </div>
