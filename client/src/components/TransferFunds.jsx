@@ -4,7 +4,7 @@ function TransferFunds({ address, setAddress, balance, checkBalance, recipient, 
     return (
         <div className="p-4 flex flex-col items-center">
             <div className="flex items-center justify-between w-4/5 mb-4">
-                <h2 className="text-xl font-bold text-gray-800">BALANCE</h2>
+                <h2 className="text-2xl font-bold text-gray-800">BALANCE</h2>
                 <button 
                     onClick={checkBalance} 
                     className="bg-button-color text-white px-4 py-2 rounded-md hover:bg-purple-600 focus:outline-none"
@@ -14,7 +14,7 @@ function TransferFunds({ address, setAddress, balance, checkBalance, recipient, 
             </div>
 
             {balance && (
-                <div className="w-4/5 text-3xl font-semibold text-purple-600 mb-6">
+                <div className="w-4/5 text-3xl font-semibold text-grey-600 mb-6">
                     <p>{balance} ETH</p>
                 </div>
             )}
@@ -59,8 +59,8 @@ function TransferFunds({ address, setAddress, balance, checkBalance, recipient, 
 
             {txHash && (
                 <div className="w-4/5 mt-6 text-left">
-                    <p className="font-bold">Transfer Successful!</p>
-                    <p className="font-bold">Your TxHash is:</p>
+                    <p className="font-bold text-base">Transfer Successful!</p>
+                    <p className="text-base">Your TxHash is:</p>
                     <p className="font-mono text-sm break-all">{txHash}</p>
                 </div>
             )}

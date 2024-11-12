@@ -4,7 +4,7 @@ function GenerateWallet({ generateNewWallet, newWalletInfo, generateMessage }) {
     return (
         <div className="p-4 flex flex-col items-center">
             <div className="flex items-center justify-between w-4/5 mb-4">
-                <h2 className="text-xl font-bold text-gray-800">GENERATE</h2>
+                <h2 className="text-2xl font-bold text-gray-800">GENERATE</h2>
                 <button 
                     onClick={generateNewWallet} 
                     className="bg-button-color text-white px-4 py-2 rounded-md hover:bg-purple-600 focus:outline-none"
@@ -15,8 +15,8 @@ function GenerateWallet({ generateNewWallet, newWalletInfo, generateMessage }) {
 
             {generateMessage && (
                 <div className="text-left w-4/5 mb-4">
-                    <p className="font-bold text-black">New Wallet Generated!</p>
-                    <p className="text-black">Your New Wallet is:</p>
+                    <p className="font-bold text-base">New Wallet Generated!</p>
+                    <p className="text-base">Your New Wallet is:</p>
                 </div>
             )}
             

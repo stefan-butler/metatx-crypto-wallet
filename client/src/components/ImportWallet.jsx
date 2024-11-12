@@ -4,7 +4,7 @@ function ImportWallet({ mnemonic, setMnemonic, privateKey, setPrivateKey, import
     return (
         <div className="p-4 flex flex-col items-center">
             <div className="w-4/5 mb-4">
-                <h2 className="text-xl font-bold text-gray-800 mb-4">IMPORT</h2>
+                <h2 className="text-2xl font-bold text-gray-800 mb-4">IMPORT</h2>
             </div>
 
             <div className="w-4/5 mb-6">
@@ -38,9 +38,9 @@ function ImportWallet({ mnemonic, setMnemonic, privateKey, setPrivateKey, import
             </div>
 
             {importMessage && (
-                <div className="w-4/5 mt-6 text-left text-green-600">
-                    <p className="font-bold">Import Successful!</p>
-                    <p>Your Wallet Address is:</p>
+                <div className="w-4/5 mt-6 text-left">
+                    <p className="font-bold text-base">Import Successful!</p>
+                    <p className="text-base">Your Wallet Address is:</p>
                     <p className="font-mono text-sm break-all">{address || ''}</p>
                 </div>
             )}
