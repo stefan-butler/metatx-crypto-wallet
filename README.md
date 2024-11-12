@@ -1,6 +1,8 @@
 # MataTx Wallet
 
-Welcome to MetaTx Wallet – your lightweight, intuitive crypto wallet extension designed for the Ethereum Sepolia Testnet. Whether you're exploring test transactions or managing development wallets, MetaTx has you covered with essential tools and an easy-to-navigate interface.
+![MetaTx Wallet Home Page](https://github.com/kayyueth/metatx-crypto-wallet/blob/main/client/public/home_page.png?raw=true)
+
+Welcome to MetaTx Wallet – your lightweight, intuitive crypto wallet extension designed for the Ethereum Transactions. Whether you're exploring test transactions or managing development wallets, MetaTx has you covered with essential tools and an easy-to-navigate interface.
 
 With MetaTx Wallet, you can:
 
@@ -10,4 +12,9 @@ With MetaTx Wallet, you can:
 
 Get started with MetaTx Wallet and take control of your Ethereum testnet experience with ease and reliability!
 
-![MetaTx Wallet Home Page](https://github.com/kayyueth/metatx-crypto-wallet/blob/main/client/public/home_page.png?raw=true)
+## Tech Stack
+
+- **Frond-end**: React, Tailwind CSS
+- **Back-end**: MongoDB, Express
+- **Blockchain**: Ether.js, Infura, Sepolia Testnet (Ethereum)
+- **Chrome Extension**: CRXJS + Vite
