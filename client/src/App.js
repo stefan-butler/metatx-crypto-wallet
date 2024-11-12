@@ -16,6 +16,7 @@ function App() {
     const [amount, setAmount] = useState('');
     const [mnemonic, setMnemonic] = useState('');
     const [privateKey, setPrivateKey] = useState('');
+    const [generateMessage, setGenerateMessage] = useState('');
     const [importMessage, setImportMessage] = useState('');
     const [newWalletInfo, setNewWalletInfo] = useState(null);
     const [txHash, setTxHash] = useState('');
@@ -27,7 +28,7 @@ function App() {
             privateKey: newWallet.privateKey,
             address: newWallet.address,
         });
-        setImportMessage('New Wallet Generated! Your New Wallet is:');
+        setGenerateMessage('New Wallet Generated! Your New Wallet is:');
     }
 
     const importWalletFromMnemonic = (mnemonicInput) => {
@@ -111,7 +112,7 @@ function App() {
                     <GenerateWallet 
                         generateNewWallet={generateNewWallet}
                         newWalletInfo={newWalletInfo}
-                        importMessage={importMessage}
+                        generateMessage={generateMessage}
                     />
                 )}
                 {activeSection === 'import' && (
@@ -123,6 +124,7 @@ function App() {
                         importWalletFromMnemonic={importWalletFromMnemonic}
                         importWalletFromPrivateKey={importWalletFromPrivateKey}
                         importMessage={importMessage}
+                        address={address}
                     />
                 )}
                 {activeSection === 'transfer' && (

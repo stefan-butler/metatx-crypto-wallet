@@ -13,7 +13,7 @@ function GenerateWallet({ generateNewWallet, newWalletInfo, importMessage }) {
                 </button>
             </div>
 
-            {importMessage && (
+            {generateMessage && (
                 <div className="text-left w-4/5 mb-4">
                     <p className="font-bold text-black">New Wallet Generated!</p>
                     <p className="text-black">Your New Wallet is:</p>
