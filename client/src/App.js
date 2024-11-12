@@ -4,6 +4,7 @@ import TransferFunds from './components/TransferFunds';
 import ImportWallet from './components/ImportWallet';
 import GenerateWallet from './components/GenerateWallet';
 import BottomNav from './components/BottomNav';
+import MetaTxText from './icons/MetaTx_text';
 
 function App() {
     const { InfuraProvider } = ethers.providers;
@@ -103,9 +104,9 @@ function App() {
 
     return (
         <div className="min-h-screen flex flex-col justify-between bg-white">
-            <header className="bg-nav-color p-4 text-center text-gray-800">
-                <h1 className="text-2xl font-bold">MetaTx Wallet</h1>
-                <p>{address}</p>
+            <header className="bg-nav-color px-3 py-3 pl-14 pr-14 text-gray-800 flex items-center justify-between">
+                <MetaTxText/>
+                <img src="/metatx_logo.png" alt="MetaTx Logo" className="w-10 h-10" />
             </header>
             
             <main className="flex-grow">
