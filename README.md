@@ -2,15 +2,13 @@
 
 ![MetaTx Wallet Home Page](https://github.com/kayyueth/metatx-crypto-wallet/blob/main/client/public/home_page.png?raw=true)
 
-Welcome to MetaTx Wallet – your lightweight, intuitive crypto wallet extension designed for the Ethereum Transactions. Whether you're exploring test transactions or managing development wallets, MetaTx has you covered with essential tools and an easy-to-navigate interface.
+MetaTx Wallet is your lightweight extension for managing Ethereum-based assets on the Sepolia Testnet. With a focus on security and ease of use, MetaTx Wallet empowers you to:
 
-With MetaTx Wallet, you can:
+- **Generate New Wallets** — Instantly create a new wallet with its private key and mnemonic phrase, giving you complete control over your assets.
+- **Import Existing Wallets** — Seamlessly import wallet addresses using a private key or mnemonic phrase, allowing you to manage your Ethereum wallets in one place.
+- **Check Balance and Transfer Funds** — Easily check your balance and transfer funds on the Sepolia Testnet, all from within the extension.
 
-- **Generate New Wallets** – Create new wallets complete with a secure private key and mnemonic phrase.
-- **Import Existing Wallets** – Effortlessly import wallet addresses using private keys or mnemonic phrases from other wallets.
-- **Check Balances & Transfer Funds** – Quickly view your wallet’s balance and conduct secure transactions on the Ethereum Sepolia Testnet.
-
-Get started with MetaTx Wallet and take control of your Ethereum testnet experience with ease and reliability!
+MetaTx Wallet is designed to handle core Ethereum transactions with simplicity and reliability.
 
 ## Tech Stack
 
