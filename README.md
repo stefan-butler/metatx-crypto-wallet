@@ -1,6 +1,7 @@
-# MetaTx Wallet
-
-![MetaTx Wallet Home Page](https://github.com/kayyueth/metatx-crypto-wallet/blob/main/client/public/home_page.png?raw=true)
+<h1 align="center">MetaTx Wallet</h1>
+<p align="center">
+  <img src="https://github.com/kayyueth/metatx-crypto-wallet/blob/main/client/public/home_page.png?raw=true" alt="MetaTx Wallet Home Page">
+</p>
 
 MetaTx Wallet is your lightweight extension for managing Ethereum-based assets. With a focus on security and ease of use, MetaTx Wallet empowers you to:
 
