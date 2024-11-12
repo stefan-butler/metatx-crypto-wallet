@@ -1,30 +1,9 @@
-# PM Dashboard
+Welcome to MetaTx Wallet – your lightweight, intuitive crypto wallet extension designed for the Ethereum Sepolia Testnet. Whether you're exploring test transactions or managing development wallets, MetaTx has you covered with essential tools and an easy-to-navigate interface.
 
-progress:
+With MetaTx Wallet, you can:
 
-feature >>>
+- Generate New Wallets – Create new wallets complete with a secure private key and mnemonic phrase.
+- Import Existing Wallets – Effortlessly import wallet addresses using private keys or mnemonic phrases from other wallets.
+- Check Balances & Transfer Funds – Quickly view your wallet’s balance and conduct secure transactions on the Ethereum Sepolia Testnet.
 
-front-end:
-
-1.  generate new wallet ✅
-2.  import from mnemonic ✅
-3.  import from private key ✅
-4.  check balance ✅
-5.  transfer funds ✅
-
-backend:
-
-6. securely manage sensitive info ✅
-7. provide /balance endpoint ✅
-8. provide /transfer endpoint ✅
-
-project management >>>
-
-9.  Infura node API key ✅
-10. logo design ✅
-11. Sepolia testnet ✅
-12. chrome extension ✅
-13. UI design
-14. UI -> front-end CSS
-15. Demo Video Editing
-16. ReadME polishment
+Get started with MetaTx Wallet and take control of your Ethereum testnet experience with ease and reliability!
