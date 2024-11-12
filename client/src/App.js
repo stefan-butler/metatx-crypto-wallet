@@ -70,8 +70,9 @@ function App() {
             } else if (response && response.error) {
                 console.error("Error received:", response.error);
             } else if (response && response.balance) {
-                setBalance(response.balance);
-                console.log("Balance received:", response.balance);
+                const roundedBalance = parseFloat(response.balance).toFixed(4);
+                setBalance(roundedBalance);
+                console.log("Balance received:", roundedBalance);
             } else {
                 console.error("Unexpected response:", response);
             }

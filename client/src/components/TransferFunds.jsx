@@ -1,52 +1,68 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 function TransferFunds({ address, setAddress, balance, checkBalance, recipient, setRecipient, amount, setAmount, transferFunds, txHash }) {
     return (
-        <div className="p-4">
-            <h2 className="text-xl font-bold text-gray-800 mb-4">Balance</h2>
-            <p className="text-3xl font-semibold text-purple-600 mb-2">{balance} ETH</p>
-            <button 
-                onClick={checkBalance} 
-                className="bg-purple-500 text-white px-4 py-2 rounded-md hover:bg-purple-600 focus:outline-none mb-6"
-            >
-                Check
-            </button>
+        <div className="p-4 flex flex-col items-center">
+            <div className="flex items-center justify-between w-4/5 mb-4">
+                <h2 className="text-xl font-bold text-gray-800">Balance</h2>
+                <button 
+                    onClick={checkBalance} 
+                    className="bg-purple-500 text-white px-4 py-2 rounded-md hover:bg-purple-600 focus:outline-none"
+                >
+                    Check
+                </button>
+            </div>
 
-            <h2 className="text-xl font-bold text-gray-800 mb-4">Sender Address</h2>
-            <input 
-                className="w-full border border-gray-300 rounded-md px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-purple-500" 
-                placeholder="Sender Address" 
-                value={address} 
-                onChange={(e) => setAddress(e.target.value)} 
-            />
+            {balance && (
+                <div className="w-4/5 text-3xl font-semibold text-purple-600 mb-6">
+                    <p>{balance} ETH</p>
+                </div>
+            )}
 
-            <h2 className="text-xl font-bold text-gray-800 mb-4">Recipient Address</h2>
-            <input 
-                className="w-full border border-gray-300 rounded-md px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-purple-500" 
-                placeholder="Recipient Address" 
-                value={recipient} 
-                onChange={(e) => setRecipient(e.target.value)} 
-            />
+            <div className="w-4/5 mb-4">
+                <h2 className="text-xl font-bold text-gray-800 mb-2">Sender Address</h2>
+                <input 
+                    className="w-full border border-gray-300 rounded-md px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-purple-500" 
+                    placeholder="Sender Address" 
+                    value={address} 
+                    onChange={(e) => setAddress(e.target.value)} 
+                />
+            </div>
 
-            <h2 className="text-xl font-bold text-gray-800 mb-4">Amount</h2>
-            <input 
-                className="w-full border border-gray-300 rounded-md px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-purple-500" 
-                placeholder="Amount (ETH)" 
-                value={amount} 
-                onChange={(e) => setAmount(e.target.value)} 
-            />
+            <div className="w-4/5 mb-4">
+                <h2 className="text-xl font-bold text-gray-800 mb-2">Recipient Address</h2>
+                <input 
+                    className="w-full border border-gray-300 rounded-md px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-purple-500" 
+                    placeholder="Recipient Address" 
+                    value={recipient} 
+                    onChange={(e) => setRecipient(e.target.value)} 
+                />
+            </div>
 
-            <button 
-                onClick={transferFunds} 
-                className="bg-purple-500 text-white px-4 py-2 rounded-md hover:bg-purple-600 focus:outline-none"
-            >
-                Send
-            </button>
+            <div className="w-4/5 mb-4">
+                <h2 className="text-xl font-bold text-gray-800 mb-2">Amount</h2>
+                <input 
+                    className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500" 
+                    placeholder="Amount (ETH)" 
+                    value={amount} 
+                    onChange={(e) => setAmount(e.target.value)} 
+                />
+                <div className="flex justify-end mt-2">
+                    <button 
+                        onClick={transferFunds} 
+                        className="bg-purple-500 text-white px-4 py-2 rounded-md hover:bg-purple-600 focus:outline-none"
+                    >
+                        Send
+                    </button>
+                </div>
+            </div>
 
             {txHash && (
-                <p className="mt-4 text-green-600">
-                    Transfer Successful! TxHash: <span className="font-mono text-sm">{txHash}</span>
-                </p>
+                <div className="w-4/5 mt-6 text-left">
+                    <p className="font-bold">Transfer Successful!</p>
+                    <p className="font-bold">Your TxHash is:</p>
+                    <p className="font-mono text-sm break-all">{txHash}</p>
+                </div>
             )}
         </div>
     );

@@ -1,6 +1,6 @@
 import React from 'react';
 
-function GenerateWallet({ generateNewWallet, newWalletInfo, importMessage }) {
+function GenerateWallet({ generateNewWallet, newWalletInfo, generateMessage }) {
     return (
         <div className="p-4 flex flex-col items-center">
             <div className="flex items-center justify-between w-4/5 mb-4">
