@@ -7,7 +7,7 @@ function TransferFunds({ address, setAddress, balance, checkBalance, recipient, 
                 <h2 className="text-xl font-bold text-gray-800">BALANCE</h2>
                 <button 
                     onClick={checkBalance} 
-                    className="bg-purple-500 text-white px-4 py-2 rounded-md hover:bg-purple-600 focus:outline-none"
+                    className="bg-button-color text-white px-4 py-2 rounded-md hover:bg-purple-600 focus:outline-none"
                 >
                     Check
                 </button>
@@ -50,7 +50,7 @@ function TransferFunds({ address, setAddress, balance, checkBalance, recipient, 
                 <div className="flex justify-end mt-2">
                     <button 
                         onClick={transferFunds} 
-                        className="bg-purple-500 text-white px-4 py-2 rounded-md hover:bg-purple-600 focus:outline-none"
+                        className="bg-button-color text-white px-4 py-2 rounded-md hover:bg-purple-600 focus:outline-none"
                     >
                         Send
                     </button>

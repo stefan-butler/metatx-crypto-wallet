@@ -16,7 +16,7 @@ function ImportWallet({ mnemonic, setMnemonic, privateKey, setPrivateKey, import
                 />
                 <button 
                     onClick={() => importWalletFromMnemonic(mnemonic)} 
-                    className="bg-purple-500 text-white px-4 py-2 rounded-md hover:bg-purple-600 focus:outline-none w-full"
+                    className="bg-button-color text-white px-4 py-2 rounded-md hover:bg-purple-600 focus:outline-none w-full"
                 >
                     Import from Mnemonic
                 </button>
@@ -31,7 +31,7 @@ function ImportWallet({ mnemonic, setMnemonic, privateKey, setPrivateKey, import
                 />
                 <button 
                     onClick={() => importWalletFromPrivateKey(privateKey)} 
-                    className="bg-purple-500 text-white px-4 py-2 rounded-md hover:bg-purple-600 focus:outline-none w-full"
+                    className="bg-button-color text-white px-4 py-2 rounded-md hover:bg-purple-600 focus:outline-none w-full"
                 >
                     Import from Private Key
                 </button>

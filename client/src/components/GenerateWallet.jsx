@@ -7,7 +7,7 @@ function GenerateWallet({ generateNewWallet, newWalletInfo, generateMessage }) {
                 <h2 className="text-xl font-bold text-gray-800">GENERATE</h2>
                 <button 
                     onClick={generateNewWallet} 
-                    className="bg-purple-500 text-white px-4 py-2 rounded-md hover:bg-purple-600 focus:outline-none"
+                    className="bg-button-color text-white px-4 py-2 rounded-md hover:bg-purple-600 focus:outline-none"
                 >
                     Generate
                 </button>

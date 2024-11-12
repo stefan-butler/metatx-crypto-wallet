@@ -2,7 +2,7 @@ import React from 'react';
 
 function BottomNav({ setActiveSection }) {
     return (
-        <div className="flex justify-around bg-gray-200 p-2 fixed bottom-0 left-0 right-0">
+        <div className="flex justify-around bg-nav-color p-2 fixed bottom-0 left-0 right-0">
             <button 
                 onClick={() => setActiveSection('generate')} 
                 className="text-gray-600 hover:text-purple-600 focus:outline-none"

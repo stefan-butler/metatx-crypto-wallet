@@ -103,7 +103,7 @@ function App() {
 
     return (
         <div className="min-h-screen flex flex-col justify-between bg-white">
-            <header className="p-4 bg-gray-800 text-white text-center">
+            <header className="bg-nav-color p-4 text-center text-gray-800">
                 <h1 className="text-2xl font-bold">MetaTx Wallet</h1>
                 <p>{address}</p>
             </header>
