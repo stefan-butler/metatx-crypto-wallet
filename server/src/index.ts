@@ -10,6 +10,19 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 dotenv.config();
 
+// Enviroment checks
+if (!process.env.MONGODB_URI) {
+  throw new Error('MONGODB_URI is not defined in the enviroment.');
+}
+
+const mongodbUri: string = process.env.MONGODB_URI;
+
+if (!process.env.MY_PRIVATE_KEY) {
+  throw new Error('MY_PRIVATE_KEY is not defined in the enviroment.');
+}
+
+const myPrivateKey: string = process.env.MY_PRIVATE_KEY;
+
 // server/index
 const app = express();
 
@@ -17,7 +30,7 @@ app.use(cors());
 app.use(express.json());
 
 mongoose
-  .connect(process.env.MONGODB_URI, {})
+  .connect(mongodbUri, {})
   .then(() => {
     console.log('MongoDB connected successfully');
   })
@@ -53,7 +66,7 @@ app.post('/transfer', async (req: Request, res: Response) => {
     'sepolia',
     process.env.INFURA_PROJECT_ID
   );
-  const wallet = new ethers.Wallet(process.env.MY_PRIVATE_KEY, provider);
+  const wallet = new ethers.Wallet(myPrivateKey, provider);
 
   try {
     const tx = await wallet.sendTransaction({
