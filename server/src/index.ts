@@ -1,11 +1,16 @@
-import { express, Request, Response } from 'express';
+import express from 'express';
+import { Request, Response } from 'express';
 
-const express = require('express');
-const mongoose = require('mongoose');
-const { ethers } = require('ethers');
-const cors = require('cors');
-require('dotenv').config();
+import mongoose from 'mongoose';
 
+import ethers from 'ethers';
+
+import cors from 'cors';
+
+import dotenv from 'dotenv';
+dotenv.config();
+
+// server/index
 const app = express();
 
 app.use(cors());
@@ -16,15 +21,16 @@ mongoose
   .then(() => {
     console.log('MongoDB connected successfully');
   })
-  .catch((error) => {
+  .catch((error: Error) => {
     console.error('MongoDB connection error:', error);
   });
 
-app.get('/', (req, res) => {
+// router
+app.get('/', (req: Request, res: Response) => {
   res.send('Welcome to the MetaTx Wallet API!');
 });
 
-app.get('/balance', async (req, res) => {
+app.get('/balance', async (req: Request, res: Response) => {
   const { address } = req.query;
   const provider = new ethers.InfuraProvider(
     'sepolia',
@@ -34,14 +40,14 @@ app.get('/balance', async (req, res) => {
   try {
     const balance = await provider.getBalance(address);
     res.json({ balance: ethers.formatEther(balance) });
-  } catch (error) {
+  } catch (error: any) {
     res
       .status(500)
       .json({ message: 'Error fetching balance', error: error.message });
   }
 });
 
-app.post('/transfer', async (req, res) => {
+app.post('/transfer', async (req: Request, res: Response) => {
   const { recipient, amount } = req.body;
   const provider = new ethers.InfuraProvider(
     'sepolia',
@@ -56,7 +62,7 @@ app.post('/transfer', async (req, res) => {
     });
     await tx.wait();
     res.json({ message: 'Transfer successful!', txHash: tx.hash });
-  } catch (error) {
+  } catch (error: any) {
     res.status(500).json({ message: 'Transfer failed', error: error.message });
   }
 });
