@@ -9,24 +9,35 @@ import TransferFunds from './components/TransferFunds';
 import BottomNav from './components/BottomNav';
 import MetaTxText from './icons/MetaTx_text';
 
+//temporary global declaration - refactor into an external file later 
+declare global {
+    interface Window {
+        chrome: typeof chrome;
+    }
+}
+
 function App() {
     const { InfuraProvider } = ethers.providers;
     const [provider] = useState(() => new InfuraProvider('sepolia', process.env.INFURA_PROJECT_ID));
     
-    const [activeSection, setActiveSection] = useState('generate');
-    const [address, setAddress] = useState('');
-    const [balance, setBalance] = useState('');
-    const [recipient, setRecipient] = useState('');
-    const [amount, setAmount] = useState('');
-    const [mnemonic, setMnemonic] = useState('');
-    const [privateKey, setPrivateKey] = useState('');
-    const [generateMessage, setGenerateMessage] = useState('');
-    const [importMessage, setImportMessage] = useState('');
-    const [newWalletInfo, setNewWalletInfo] = useState(null);
-    const [txHash, setTxHash] = useState('');
+    const [activeSection, setActiveSection] = useState<string>('generate');
+    const [address, setAddress] = useState<string>('');
+    const [balance, setBalance] = useState<string>('');
+    const [recipient, setRecipient] = useState<string>('');
+    const [amount, setAmount] = useState<string>('');
+    const [mnemonic, setMnemonic] = useState<string>('');
+    const [privateKey, setPrivateKey] = useState<string>('');
+    const [generateMessage, setGenerateMessage] = useState<string>('');
+    const [importMessage, setImportMessage] = useState<string>('');
+    const [newWalletInfo, setNewWalletInfo] = useState<{
+        mnemonic: string;
+        privateKey: string;
+        address: string;
+    } | null >(null); 
+    const [txHash, setTxHash] = useState<string>('');
 
-    const generateNewWallet = () => {
-        const newWallet =  ethers.Wallet.createRandom();
+    const generateNewWallet = (): void => {
+        const newWallet: ethers.Wallet =  ethers.Wallet.createRandom();
         setNewWalletInfo({
             mnemonic: newWallet.mnemonic.phrase,
             privateKey: newWallet.privateKey,
@@ -35,7 +46,7 @@ function App() {
         setGenerateMessage('New Wallet Generated! Your New Wallet is:');
     }
 
-    const importWalletFromMnemonic = (mnemonicInput) => {
+    const importWalletFromMnemonic = (mnemonicInput: string) => {
         if (!mnemonicInput.trim()) {
             setImportMessage("Error: Mnemonic cannot be empty");
             return;
@@ -51,7 +62,7 @@ function App() {
         }
     }
 
-    const importWalletFromPrivateKey = (privateKeyInput) => {
+    const importWalletFromPrivateKey = (privateKeyInput: string): void => {
         if (!privateKeyInput.trim()) { 
             setImportMessage("Error: Private key cannot be empty");
             return;
@@ -67,14 +78,15 @@ function App() {
         }
     };
 
-    const checkBalance = async () => {
-        chrome.runtime.sendMessage({ type: 'CHECK_BALANCE', address }, (response) => {
+    // temporary any for response 
+    const checkBalance = async (): Promise<void> => {
+        chrome.runtime.sendMessage({ type: 'CHECK_BALANCE', address }, (response: any) => {
             if (chrome.runtime.lastError) {
                 console.error("Runtime error:", chrome.runtime.lastError.message);
             } else if (response && response.error) {
                 console.error("Error received:", response.error);
             } else if (response && response.balance) {
-                const roundedBalance = parseFloat(response.balance).toFixed(4);
+                const roundedBalance: string = parseFloat(response.balance).toFixed(4);
                 setBalance(roundedBalance);
                 console.log("Balance received:", roundedBalance);
             } else {
@@ -83,10 +95,11 @@ function App() {
         });
     };
     
-    const transferFunds = async () => {
+    // temporary any for response 
+    const transferFunds = async (): Promise<void> => {
         chrome.runtime.sendMessage(
             { type: 'TRANSFER_FUNDS', recipient, amount },
-            (response) => {
+            (response: any) => {
                 if (chrome.runtime.lastError) {
                     console.error("Runtime error:", chrome.runtime.lastError.message);
                     alert("Transfer failed.");
