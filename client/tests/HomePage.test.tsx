@@ -1,14 +1,19 @@
 import { render, screen } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import React from 'react';
 import HomePage from '../src/components/HomePage';
 import userEvent from '@testing-library/user-event';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { BrowserRouter, useNavigate } from 'react-router-dom'
 
 //mocks the useNavigate hook - use vi.fn() instead of useNavigate
-vi.mock('react-router-dom', () => ({
-  ...vi.importActual('react-router-dom'),
-  useNavigate: vi.fn(),
-}));
+vi.mock('react-router-dom', async (importOriginal) => {
+  const actual = await importOriginal();
+  return {
+    ...actual,
+    useNavigate: vi.fn(), 
+  };
+});
 
 describe('HomePage Component', () => {
   const mockNavigate = vi.fn();
