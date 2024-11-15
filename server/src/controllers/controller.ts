@@ -11,7 +11,7 @@ if (!process.env.MY_PRIVATE_KEY) {
 const myPrivateKey: string = process.env.MY_PRIVATE_KEY;
 
 export const fetchBalance = async (req: Request, res: Response) => {
-  const { address } = req.query;
+  const { address }: string = req.query;
   const provider = new ethers.InfuraProvider(
     'sepolia',
     process.env.INFURA_PROJECT_ID
