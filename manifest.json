@@ -4,7 +4,7 @@
     "version": "1.0",
     "manifest_version": 3,
     "action": {
-        "default_popup": "index.jsx",
+        "default_popup": "index.tsx",
         "default_icon": "metatx_logo.png"
     },
     "icon": {

@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import ethers from 'ethers';
+import { ethers, AddressLike } from 'ethers';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -11,14 +11,14 @@ if (!process.env.MY_PRIVATE_KEY) {
 const myPrivateKey: string = process.env.MY_PRIVATE_KEY;
 
 export const fetchBalance = async (req: Request, res: Response) => {
-  const { address }: string = req.query;
+  const { address } = req.query;
   const provider = new ethers.InfuraProvider(
     'sepolia',
     process.env.INFURA_PROJECT_ID
   );
 
   try {
-    const balance = await provider.getBalance(address);
+    const balance = await provider.getBalance(address as AddressLike);
     res.json({ balance: ethers.formatEther(balance) });
   } catch (error: any) {
     res

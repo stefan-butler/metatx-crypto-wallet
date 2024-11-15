@@ -9,7 +9,7 @@ import TransferFunds from './components/TransferFunds';
 import BottomNav from './components/BottomNav';
 import MetaTxText from './icons/MetaTx_text';
 
-//temporary global declaration - refactor into an external file later 
+//temporary global declaration - refactor into an external file later
 declare global {
     interface Window {
         chrome: typeof chrome;
@@ -19,8 +19,7 @@ declare global {
 function App() {
     const { InfuraProvider } = ethers.providers;
     const [provider] = useState(() => new InfuraProvider('sepolia', process.env.INFURA_PROJECT_ID));
-    
-    const [activeSection, setActiveSection] = useState<string>('generate');
+
     const [address, setAddress] = useState<string>('');
     const [balance, setBalance] = useState<string>('');
     const [recipient, setRecipient] = useState<string>('');
@@ -33,7 +32,7 @@ function App() {
         mnemonic: string;
         privateKey: string;
         address: string;
-    } | null >(null); 
+    } | null >(null);
     const [txHash, setTxHash] = useState<string>('');
 
     const generateNewWallet = (): void => {
@@ -63,7 +62,7 @@ function App() {
     }
 
     const importWalletFromPrivateKey = (privateKeyInput: string): void => {
-        if (!privateKeyInput.trim()) { 
+        if (!privateKeyInput.trim()) {
             setImportMessage("Error: Private key cannot be empty");
             return;
         }
@@ -78,7 +77,7 @@ function App() {
         }
     };
 
-    // temporary any for response 
+    // temporary any for response
     const checkBalance = async (): Promise<void> => {
         chrome.runtime.sendMessage({ type: 'CHECK_BALANCE', address }, (response: any) => {
             if (chrome.runtime.lastError) {
@@ -94,8 +93,8 @@ function App() {
             }
         });
     };
-    
-    // temporary any for response 
+
+    // temporary any for response
     const transferFunds = async (): Promise<void> => {
         chrome.runtime.sendMessage(
             { type: 'TRANSFER_FUNDS', recipient, amount },
@@ -110,9 +109,9 @@ function App() {
                 } else {
                     alert(response.message);
                     setImportMessage('Transfer successful!');
-                    setTxHash(response.txHash); 
-                    console.log("Import message set to:", 'Transfer successful!'); 
-                    console.log("Transaction hash set to:", response.txHash); 
+                    setTxHash(response.txHash);
+                    console.log("Import message set to:", 'Transfer successful!');
+                    console.log("Transaction hash set to:", response.txHash);
                 }
             }
         );
@@ -125,24 +124,24 @@ function App() {
                     <MetaTxText/>
                     <img src="/metatx_logo.png" alt="MetaTx Logo" className="w-10 h-10" />
                 </header>
-                
+
                 <main className="flex-grow">
                     <Routes>
                         <Route path="/" element={<HomePage />} />
-                        <Route 
-                            path="/generate" 
+                        <Route
+                            path="/generate"
                             element={
-                                <GenerateWallet 
+                                <GenerateWallet
                                     generateNewWallet={generateNewWallet}
                                     newWalletInfo={newWalletInfo}
                                     generateMessage={generateMessage}
                                 />
-                            } 
+                            }
                         />
-                        <Route 
-                            path="/import" 
+                        <Route
+                            path="/import"
                             element={
-                                <ImportWallet 
+                                <ImportWallet
                                     mnemonic={mnemonic}
                                     setMnemonic={setMnemonic}
                                     privateKey={privateKey}
@@ -152,12 +151,12 @@ function App() {
                                     importMessage={importMessage}
                                     address={address}
                                 />
-                            } 
+                            }
                         />
-                        <Route 
-                            path="/transfer" 
+                        <Route
+                            path="/transfer"
                             element={
-                                <TransferFunds 
+                                <TransferFunds
                                     address={address}
                                     setAddress={setAddress}
                                     balance={balance}
@@ -170,13 +169,13 @@ function App() {
                                     transferFunds={transferFunds}
                                     txHash={txHash}
                                 />
-                            } 
+                            }
                         />
                         <Route path="*" element={<Navigate to="/" />} />
                     </Routes>
                 </main>
 
-                <BottomNav setActiveSection={setActiveSection} />
+                <BottomNav />
             </div>
         </Router>
     );
