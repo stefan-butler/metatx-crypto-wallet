@@ -7,5 +7,9 @@ export default defineConfig({
   plugins: [
     react(),
     crx({ manifest })
-  ]
+  ],
+  test: {
+    globals: true,
+    environment: 'jsdom',
+  },
 });

@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import HomePage from '../src/components/HomePage';
 import userEvent from '@testing-library/user-event';
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { BrowserRouter, useNavigate } from 'react-router-dom'
 
 //mocks the useNavigate hook - use vi.fn() instead of useNavigate

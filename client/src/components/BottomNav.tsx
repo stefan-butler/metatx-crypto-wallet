@@ -6,7 +6,7 @@ import TransferIcon from '../icons/TransferIcon';
 
 function BottomNav() {
     return (
-        <footer className="bg-nav-color p-4 text-center flex justify-around fixed bottom-0 left-0 w-full">
+        <nav className="bg-nav-color p-4 text-center flex justify-around fixed bottom-0 left-0 w-full">
             <Link
                 to="/generate"
                 className="flex flex-col items-center text-gray-800"
@@ -36,7 +36,7 @@ function BottomNav() {
                 </div>
                 <span>TRANSFER</span>
             </Link>
-        </footer>
+        </nav>
     );
 }
 
