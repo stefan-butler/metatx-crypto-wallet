@@ -7,6 +7,8 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { BrowserRouter, useNavigate } from 'react-router-dom'
 
 //mocks the useNavigate hook - use vi.fn() instead of useNavigate
+//importOriginal gets the original react-router-dom module and merges it with the mock for useNavigate 
+
 vi.mock('react-router-dom', async (importOriginal) => {
   const actual = await importOriginal();
   return {
