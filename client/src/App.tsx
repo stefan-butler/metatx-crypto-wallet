@@ -176,7 +176,7 @@ function App() {
                     </Routes>
                 </main>
 
-                <BottomNav setActiveSection={setActiveSection} />
+                <BottomNav />
             </div>
         </Router>
     );
