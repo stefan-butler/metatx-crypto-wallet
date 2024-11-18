@@ -1,7 +1,6 @@
 import React from "react";
 
 interface TransferProps {
-  address: string;
   setAddress: React.Dispatch<React.SetStateAction<string>>;
   balance: string;
   setBalance: React.Dispatch<React.SetStateAction<string>>;
@@ -15,7 +14,6 @@ interface TransferProps {
 }
 
 const TransferFunds: React.FC<TransferProps> = ({
-  address,
   setAddress,
   balance,
   checkBalance,
@@ -49,7 +47,6 @@ const TransferFunds: React.FC<TransferProps> = ({
         <input
           className="w-full border border-gray-300 rounded-md px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-purple-500"
           placeholder="Sender Address"
-          value={address}
           onChange={(e) => setAddress(e.target.value)}
         />
       </div>

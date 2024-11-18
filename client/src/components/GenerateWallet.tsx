@@ -1,14 +1,9 @@
-import React from 'react';
-
-interface NewWalInfo {
-  address: string;
-  mnemonic: string;
-  privateKey: string;
-}
+import React from "react";
+import { Wallet } from "../types";
 
 export interface GenProps {
   generateNewWallet: () => void;
-  newWalletInfo: NewWalInfo | null;
+  newWalletInfo: Wallet | null;
   generateMessage: string;
 }
 
@@ -45,7 +40,7 @@ const GenerateWallet: React.FC<GenProps> = ({
               data-testid="address-field"
               className="font-mono text-sm break-all flex-1"
             >
-              {newWalletInfo?.address || ''}
+              {newWalletInfo?.address || ""}
             </span>
           </div>
         </div>
@@ -58,7 +53,7 @@ const GenerateWallet: React.FC<GenProps> = ({
               data-testid="mnemonic-field"
               className="font-mono text-sm break-all flex-1"
             >
-              {newWalletInfo?.mnemonic || ''}
+              {newWalletInfo?.mnemonic || ""}
             </span>
           </div>
         </div>
@@ -71,7 +66,7 @@ const GenerateWallet: React.FC<GenProps> = ({
               data-testid="private-key-field"
               className="font-mono text-sm break-all flex-1"
             >
-              {newWalletInfo?.privateKey || ''}
+              {newWalletInfo?.privateKey || ""}
             </span>
           </div>
         </div>
