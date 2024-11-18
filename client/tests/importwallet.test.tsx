@@ -22,13 +22,29 @@ describe('ImportWallet Component', () => {
   };
 
   it('renders correctly', () => {
-    render(<ImportWallet {...props} />);
+    render(
+      <ImportWallet
+        walName={''}
+        setWalName={function (walName: string): void {
+          throw new Error('Function not implemented.');
+        }}
+        {...props}
+      />
+    );
     expect(screen.getByPlaceholderText('Mnemonic')).toBeInTheDocument();
     expect(screen.getByPlaceholderText('Private Key')).toBeInTheDocument();
   });
 
   it('calls setMnemonic on mnemonic input change', () => {
-    render(<ImportWallet {...props} />);
+    render(
+      <ImportWallet
+        walName={''}
+        setWalName={function (walName: string): void {
+          throw new Error('Function not implemented.');
+        }}
+        {...props}
+      />
+    );
     const mnemonicInput = screen.getByPlaceholderText('Mnemonic');
 
     fireEvent.change(mnemonicInput, { target: { value: 'lol testing' } });
@@ -36,7 +52,15 @@ describe('ImportWallet Component', () => {
   });
 
   it('calls importWalletFromMnemonic on button click', () => {
-    render(<ImportWallet {...props} />);
+    render(
+      <ImportWallet
+        walName={''}
+        setWalName={function (walName: string): void {
+          throw new Error('Function not implemented.');
+        }}
+        {...props}
+      />
+    );
     const button = screen.getByText('Import from Mnemonic');
 
     fireEvent.click(button);
@@ -44,7 +68,15 @@ describe('ImportWallet Component', () => {
   });
 
   it('calls setPrivateKey on PK input change', () => {
-    render(<ImportWallet {...props} />);
+    render(
+      <ImportWallet
+        walName={''}
+        setWalName={function (walName: string): void {
+          throw new Error('Function not implemented.');
+        }}
+        {...props}
+      />
+    );
     const pkInput = screen.getByPlaceholderText('Private Key');
 
     fireEvent.change(pkInput, { target: { value: 'lol testing1' } });
@@ -52,11 +84,18 @@ describe('ImportWallet Component', () => {
   });
 
   it('calls importWalletFromPrivateKey on button click', () => {
-    render(<ImportWallet {...props} />);
+    render(
+      <ImportWallet
+        walName={''}
+        setWalName={function (walName: string): void {
+          throw new Error('Function not implemented.');
+        }}
+        {...props}
+      />
+    );
     const button = screen.getByText('Import from Private Key');
 
     fireEvent.click(button);
     expect(mockImportWalletFromPrivateKey).toHaveBeenCalledWith('');
   });
-
 });
