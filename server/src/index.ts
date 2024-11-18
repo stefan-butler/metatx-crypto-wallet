@@ -13,8 +13,13 @@ const mongodbUri: string = process.env.MONGODB_URI;
 
 const app = express();
 const PORT = process.env.PORT || 5002;
+const corsConfig = {
+  origin: "http://localhost:3000",
+  credentials: true,
+};
 
-app.use(cors());
+
+app.use(cors(corsConfig));
 app.use(express.json());
 app.use(router);
 
