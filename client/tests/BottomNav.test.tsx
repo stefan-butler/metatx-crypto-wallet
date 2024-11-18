@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import BottomNav from '../src/components/BottomNav';
 import { describe, it, expect } from 'vitest';
+import React from 'react';
 
 describe('BottomNav Component', () => {
   it('renders without crashing', () => {
@@ -27,5 +28,5 @@ describe('BottomNav Component', () => {
     expect(importLink).toBeDefined();
     expect(generateLink).toBeDefined();
     expect(transferLink).toBeDefined();
-  })
+  });
 });
