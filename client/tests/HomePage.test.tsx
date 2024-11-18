@@ -4,16 +4,16 @@ import React from 'react';
 import HomePage from '../src/components/HomePage';
 import userEvent from '@testing-library/user-event';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { BrowserRouter, useNavigate } from 'react-router-dom'
+import { BrowserRouter, useNavigate } from 'react-router-dom';
 
 //mocks the useNavigate hook - use vi.fn() instead of useNavigate
-//importOriginal gets the original react-router-dom module and merges it with the mock for useNavigate 
+//importOriginal gets the original react-router-dom module and merges it with the mock for useNavigate
 
 vi.mock('react-router-dom', async (importOriginal) => {
-  const actual = await importOriginal();
+  const actual: object = await importOriginal();
   return {
     ...actual,
-    useNavigate: vi.fn(), 
+    useNavigate: vi.fn(),
   };
 });
 
@@ -21,7 +21,7 @@ describe('HomePage Component', () => {
   const mockNavigate = vi.fn();
 
   beforeEach(() => {
-    //reset mock before each test 
+    //reset mock before each test
     vi.mocked(useNavigate).mockReturnValue(mockNavigate);
   });
 
@@ -35,7 +35,7 @@ describe('HomePage Component', () => {
     expect(enterButton).toBeDefined;
   });
 
-  it('navigates to /generate when enter is clicked', async() => {
+  it('navigates to /generate when enter is clicked', async () => {
     render(
       <BrowserRouter>
         <HomePage />
@@ -44,6 +44,6 @@ describe('HomePage Component', () => {
     const enterButton = screen.getByRole('button', { name: /enter/i });
     await userEvent.click(enterButton);
 
-    expect(mockNavigate).toHaveBeenCalledWith('/generate')
-  })
-})
+    expect(mockNavigate).toHaveBeenCalledWith('/generate');
+  });
+});
