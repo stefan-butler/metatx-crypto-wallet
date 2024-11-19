@@ -1,4 +1,7 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
+import { ImportedWallet } from "../types";
+import { getWallets } from "../services/walletService";
+
 
 interface TransferProps {
   setAddress: React.Dispatch<React.SetStateAction<string>>;
@@ -24,6 +27,14 @@ const TransferFunds: React.FC<TransferProps> = ({
   transferFunds,
   txHash,
 }) => {
+
+  const [wallets, setWallets] = useState<ImportedWallet[] | null>(null);
+  useEffect(() => {
+    getWallets().then((res: ImportedWallet[] | null) => {
+      setWallets(res);
+    });
+  }, []);
+
   return (
     <div className="p-4 flex flex-col items-center">
       <div className="flex items-center justify-between w-4/5 py-4">
@@ -43,12 +54,20 @@ const TransferFunds: React.FC<TransferProps> = ({
       )}
 
       <div className="w-4/5">
-        <h2 className="text-xl font-bold text-gray-800 mt-3">Sender Address</h2>
-        <input
-          className="w-full border border-gray-300 rounded-md px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-purple-500"
-          placeholder="Sender Address"
+        <h2 className="text-xl font-bold text-gray-800 mt-3">Select Wallet</h2>
+        <select
           onChange={(e) => setAddress(e.target.value)}
-        />
+          className="w-full border border-gray-300 rounded-md px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-purple-500"
+        >
+          <option value="">
+            Choose a wallet
+          </option>
+          {wallets?.map((wallet: ImportedWallet, index) => (
+            <option key={index} value={wallet.address}>
+              {wallet.name}
+            </option>
+          ))}
+        </select>
       </div>
 
       <div className="w-4/5">
