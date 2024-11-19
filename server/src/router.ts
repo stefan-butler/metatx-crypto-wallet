@@ -2,6 +2,7 @@ import express from 'express';
 import { Request, Response } from 'express';
 import { fetchBalance, transferBalance } from './controllers/balance';
 import { getWallets, addWallet, deleteWallet } from './controllers/wallet';
+import TransactionLog from './models/transactions';
 const router = express.Router();
 
 router.get('/', (req: Request, res: Response) => {
@@ -11,6 +12,15 @@ router.get('/', (req: Request, res: Response) => {
 router.get('/balance', fetchBalance);
 
 router.post('/transfer', transferBalance);
+
+router.get('/logs', async (req, res) => {
+  try {
+    const logs = await TransactionLog.find().sort({ createdAt: -1 }); // Fetch logs in descending order
+    res.json(logs);
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to fetch logs', error });
+  }
+});
 
 // Wallets
 

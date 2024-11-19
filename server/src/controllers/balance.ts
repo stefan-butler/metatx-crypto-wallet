@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { ethers, AddressLike } from 'ethers';
 import dotenv from 'dotenv';
+import TransactionLog from '../models/transactions'
 
 dotenv.config();
 
@@ -45,8 +46,28 @@ export const transferBalance = async (req: Request, res: Response) => {
       value: ethers.parseEther(amount),
     });
     await tx.wait();
+
+     // Log the successful transaction in db
+     await TransactionLog.create({
+      sender: wallet.address,
+      recipient,
+      amount,
+      transactionHash: tx.hash,
+      status: 'success',
+    });
+
     res.json({ message: 'Transfer successful!', txHash: tx.hash });
   } catch (error: any) {
+    // Log the failed transaction
+    await TransactionLog.create({
+      sender: wallet.address,
+      recipient,
+      amount,
+      transactionHash: '', // No hash since the transaction failed
+      status: 'failed',
+      errorMessage: error.message,
+    });
+    
     res.status(500).json({ message: 'Transfer failed', error: error.message });
   }
 };
