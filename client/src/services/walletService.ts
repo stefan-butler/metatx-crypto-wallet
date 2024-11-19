@@ -1,33 +1,42 @@
-import { ImportedWallet } from "../types";
+import { ImportedWallet } from '../types';
 
-const BASE_URL: string = "http://localhost:5002";
+const BASE_URL: string = 'http://localhost:5002';
 
-export const getWallets = () => {
-  return fetch(`${BASE_URL}/wallets`)
-    .then((res) => res.json())
-    .catch((err) => console.log(err, "smth went wrongg"));
-}
-
-export const createWallet = (wallet: ImportedWallet) => {
-  return fetch(`${BASE_URL}/generate`, {
-    method: "POST",
-    credentials: "include",
-    mode: "cors",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(wallet),
-  })
-    .then((res) => res.json())
-    .catch((err) => console.log(err));
+export const getWallets = async () => {
+  try {
+    const res = await fetch(`${BASE_URL}/wallets`);
+    return await res.json();
+  } catch (err) {
+    return console.log(err, 'something went wrong');
+  }
 };
 
-export const deleteWallet = (address: string) => {
-  return fetch(`${BASE_URL}/delete`, {
-    method: "DELETE",
-    credentials: "include",
-    mode: "cors",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({address: address}),
-  })
-    .then((res) => res.json())
-    .catch((err) => console.log(err));
+export const createWallet = async (wallet: ImportedWallet) => {
+  try {
+    const res = await fetch(`${BASE_URL}/generate`, {
+      method: 'POST',
+      credentials: 'include',
+      mode: 'cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(wallet),
+    });
+    return await res.json();
+  } catch (err) {
+    return console.log(err);
+  }
+};
+
+export const deleteWallet = async (address: string) => {
+  try {
+    const res = await fetch(`${BASE_URL}/delete`, {
+      method: 'DELETE',
+      credentials: 'include',
+      mode: 'cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ address: address }),
+    });
+    return await res.json();
+  } catch (err) {
+    return console.log(err);
+  }
 };
