@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, vi, expect } from 'vitest';
 import '@testing-library/jest-dom';
-import TransferFunds from '../src/components/TransferFunds';
+import TransferFunds from '../../src/components/TransferFunds';
 
 describe('ImportWallet Component', () => {
   const mockSetAddress = vi.fn();
@@ -23,13 +23,15 @@ describe('ImportWallet Component', () => {
     amount: '',
     setAmount: mockSetAmount,
     transferFunds: mockTransferFunds,
-    txHash: ''
+    txHash: '',
   };
 
   it('renders correctly', () => {
     render(<TransferFunds {...props} />);
     expect(screen.getByPlaceholderText('Sender Address')).toBeInTheDocument();
-    expect(screen.getByPlaceholderText('Recipient Address')).toBeInTheDocument();
+    expect(
+      screen.getByPlaceholderText('Recipient Address')
+    ).toBeInTheDocument();
     expect(screen.getByPlaceholderText('Amount (ETH)')).toBeInTheDocument();
   });
 
@@ -72,5 +74,4 @@ describe('ImportWallet Component', () => {
     fireEvent.click(button);
     expect(mockTransferFunds).toHaveBeenCalled();
   });
-
 });
