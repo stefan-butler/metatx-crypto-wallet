@@ -1,8 +1,8 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
-import { describe, it, expect, vi, beforeEach, beforeAll } from "vitest";
+import { describe, it, expect, vi, beforeEach, beforeAll } from 'vitest';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
-import WalletDetails from '../src/components/WalletDetails';
+import WalletDetails from '../../src/components/WalletDetails';
 
 const mockSendMessage = vi.fn();
 
@@ -22,7 +22,8 @@ describe('WalletDetails Component', () => {
     name: 'My Wallet',
     address: '0x1234567890abcdef1234567890abcdef12345678',
     mnemonic: 'test',
-    privateKey: '0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890',
+    privateKey:
+      '0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890',
   };
 
   beforeEach(() => {
@@ -111,7 +112,7 @@ describe('WalletDetails Component', () => {
       expect(mockSendMessage).toHaveBeenCalled();
     });
 
-    expect(screen.queryByText("ETH")).not.toBeTruthy();
+    expect(screen.queryByText('ETH')).not.toBeTruthy();
   });
 
   it('handles invalid response gracefully', async () => {
@@ -138,7 +139,6 @@ describe('WalletDetails Component', () => {
       expect(mockSendMessage).toHaveBeenCalled();
     });
 
-    expect(screen.queryByText("ETH")).not.toBeTruthy();
+    expect(screen.queryByText('ETH')).not.toBeTruthy();
   });
-
 });
