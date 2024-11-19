@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
-import GenerateWallet, { GenProps } from '../src/components/GenerateWallet';
+import GenerateWallet, { GenProps } from '../../src/components/GenerateWallet';
 import '@testing-library/jest-dom';
 import React from 'react';
 

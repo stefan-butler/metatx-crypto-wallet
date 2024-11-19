@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, vi, expect } from 'vitest';
 import '@testing-library/jest-dom';
-import ImportWallet from '../src/components/ImportWallet';
+import ImportWallet from '../../src/components/ImportWallet';
 
 describe('ImportWallet Component', () => {
   const mockSetMnemonic = vi.fn();
