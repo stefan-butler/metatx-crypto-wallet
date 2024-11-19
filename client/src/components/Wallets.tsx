@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 
 const Wallets = () => {
   const [wallets, setWallets] = useState<ImportedWallet[] | null>(null);
-  const [balance, setBalance] = useState<String>("");
 
   useEffect(() => {
     getWallets().then((res: ImportedWallet[] | null) => {

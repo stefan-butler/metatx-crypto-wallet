@@ -8,6 +8,10 @@ if (!process.env.MY_PRIVATE_KEY) {
   throw new Error('MY_PRIVATE_KEY is not defined in the enviroment.');
 }
 
+if (!process.env.INFURA_PROJECT_ID) {
+  throw new Error('INFURA_PROJECT_ID is not defined in the environment.');
+}
+
 const myPrivateKey: string = process.env.MY_PRIVATE_KEY;
 
 export const fetchBalance = async (req: Request, res: Response) => {
@@ -19,7 +23,7 @@ export const fetchBalance = async (req: Request, res: Response) => {
 
   try {
     const balance = await provider.getBalance(address as AddressLike);
-    res.json({ balance: ethers.formatEther(balance) });
+    res.status(200).json({ balance: ethers.formatEther(balance) });
   } catch (error: any) {
     res
       .status(500)
