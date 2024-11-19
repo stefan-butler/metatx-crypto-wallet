@@ -50,9 +50,9 @@ describe("Wallet API Tests", () => {
     const response = await request(app)
       .post("/generate")
       .send({
-        mnemonic: "delete mnemonic",
-        privateKey: "private-key-456",
-        name: "Wallet to delete",
+        mnemonic: "test mnemonic",
+        privateKey: "private",
+        name: "Wallet error",
       })
       .set("Content-Type", "application/json");
     expect(response.status).toBe(500);

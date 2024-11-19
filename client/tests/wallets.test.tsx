@@ -91,7 +91,7 @@ describe("Wallets Component", () => {
     );
   });
 
-  it("renders navigation links for each wallet", async () => {
+  it("renders links for each wallet", async () => {
     (getWallets as Mock).mockResolvedValue(mockWallets);
 
     render(
