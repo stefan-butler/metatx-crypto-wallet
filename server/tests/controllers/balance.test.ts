@@ -1,6 +1,6 @@
 import request from 'supertest';
 import app from '../../src/app';
-import { ethers } from 'ethers';
+import { ethers, TransactionResponse } from 'ethers';
 import mongoose from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import { describe, beforeAll, it, afterAll, expect, jest } from '@jest/globals';
@@ -14,13 +14,13 @@ jest.mock('ethers', () => {
   return {
     ...originalModule,
     InfuraProvider: jest.fn().mockImplementation(() => ({
-      getBalance: jest.fn(),
+      getBalance: jest.fn<() => Promise<any>>().mockResolvedValue(ethers.ZeroAddress),
       sendTransaction: jest.fn<() => Promise<any>>().mockResolvedValue({
         hash: '0x123',
         wait: jest.fn(),
       }),
     })),
-    formatEther: jest.fn(() => '1.0'), 
+    formatEther: jest.fn(() => '0.0'), // Format zero balance for testing
   };
 });
 
@@ -38,13 +38,14 @@ afterAll(async () => {
 });
 
 describe('Transfer Balance Controller', () => {
-  it('should successfully transfer balance', async () => {
+  it('should successfully transfer balance even if balance is zero (mocked)', async () => {
     const response = await request(app)
       .post('/transfer')
       .send({
         recipient: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e',
         amount: '0.01',
       });
+
     console.log(response.body);
     expect(response.status).toBe(200);
     expect(response.body.message).toBe('Transfer successful!');
