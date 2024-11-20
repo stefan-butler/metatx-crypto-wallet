@@ -50,6 +50,7 @@ export const transferBalance = async (req: Request, res: Response) => {
       amount,
       transactionHash: tx.hash,
       status: 'success',
+      name: senderWallet?.name
     });
     res.json({ message: 'Transfer successful!', txHash: tx.hash });
   } catch (error: any) {
@@ -61,6 +62,7 @@ export const transferBalance = async (req: Request, res: Response) => {
       transactionHash: '', // No hash since the transaction failed
       status: 'failed',
       errorMessage: error.message,
+      name: senderWallet?.name
     });
     console.log(error)
     res.status(500).json({ message: 'Transfer failed', error: error.message });

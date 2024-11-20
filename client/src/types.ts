@@ -7,3 +7,14 @@ export interface Wallet {
 export interface ImportedWallet extends Wallet {
   name: string;
 }
+
+export interface Transaction {
+  sender: string,
+  recipient: string,
+  amount: string,
+  transactionHash: string,
+  status: string,
+  errorMessage: string,
+  createdAt: Date,
+  name?: String
+}

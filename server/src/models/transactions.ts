@@ -8,6 +8,7 @@ const transactionLogSchema = new mongoose.Schema({
   status: { type: String, enum: ['success', 'failed'], required: true },
   errorMessage: { type: String, required: false },
   createdAt: { type: Date, default: Date.now },
+  name: { type: String }
 });
 
 const TransactionLog = mongoose.model('TransactionLog', transactionLogSchema);

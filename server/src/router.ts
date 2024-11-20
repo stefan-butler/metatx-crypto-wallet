@@ -2,6 +2,7 @@ import express from 'express';
 import { Request, Response } from 'express';
 import { fetchBalance, transferBalance } from './controllers/balance';
 import { getWallets, addWallet, deleteWallet } from './controllers/wallet';
+import { getTransactions } from './controllers/transactions';
 import TransactionLog from './models/transactions';
 const router = express.Router();
 
@@ -27,5 +28,9 @@ router.get('/logs', async (req, res) => {
 router.get('/wallets', getWallets);
 router.post('/generate', addWallet);
 router.delete('/delete', deleteWallet);
+
+// Transactions
+
+router.get('/transactions', getTransactions);
 
 export default router;
