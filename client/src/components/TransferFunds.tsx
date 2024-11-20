@@ -1,7 +1,6 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { ImportedWallet } from "../types";
 import { getWallets } from "../services/walletService";
-
 
 interface TransferProps {
   setAddress: React.Dispatch<React.SetStateAction<string>>;
@@ -27,8 +26,8 @@ const TransferFunds: React.FC<TransferProps> = ({
   transferFunds,
   txHash,
 }) => {
-
   const [wallets, setWallets] = useState<ImportedWallet[] | null>(null);
+
   useEffect(() => {
     getWallets().then((res: ImportedWallet[] | null) => {
       setWallets(res);
@@ -39,29 +38,22 @@ const TransferFunds: React.FC<TransferProps> = ({
     <div className="p-4 flex flex-col items-center">
       <div className="flex items-center justify-between w-4/5 py-4">
         <h2 className="text-2xl font-bold text-gray-800">BALANCE</h2>
-        <button
-          onClick={checkBalance}
-          className="bg-button-color text-white px-4 py-2 rounded-md hover:bg-purple-600 focus:outline-none"
-        >
-          Check
-        </button>
       </div>
-
       {balance && (
         <div className="w-4/5 text-3xl font-semibold text-grey-600">
           <p>{balance} ETH</p>
         </div>
       )}
-
       <div className="w-4/5">
         <h2 className="text-xl font-bold text-gray-800 mt-3">Select Wallet</h2>
         <select
-          onChange={(e) => setAddress(e.target.value)}
+          onChange={(e) => {
+            setAddress(e.target.value);
+          }}
+          onClick={checkBalance}
           className="w-full border border-gray-300 rounded-md px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-purple-500"
         >
-          <option value="">
-            Choose a wallet
-          </option>
+          <option value="">Choose a wallet</option>
           {wallets?.map((wallet: ImportedWallet, index) => (
             <option key={index} value={wallet.address}>
               {wallet.name}
@@ -69,7 +61,6 @@ const TransferFunds: React.FC<TransferProps> = ({
           ))}
         </select>
       </div>
-
       <div className="w-4/5">
         <h2 className="text-xl font-bold text-gray-800 mt-3">
           Recipient Address
@@ -81,7 +72,6 @@ const TransferFunds: React.FC<TransferProps> = ({
           onChange={(e) => setRecipient(e.target.value)}
         />
       </div>
-
       <div className="w-4/5">
         <h2 className="text-xl font-bold text-gray-800 mt-3">Amount</h2>
         <input
@@ -99,7 +89,6 @@ const TransferFunds: React.FC<TransferProps> = ({
           </button>
         </div>
       </div>
-
       {txHash && (
         <div className="w-4/5 text-left">
           <p className="font-bold text-base">Transfer Successful!</p>
