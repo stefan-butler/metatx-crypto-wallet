@@ -15,7 +15,7 @@ interface TransferProps {
   txHash: string;
 }
 
-const TransferFunds: React.FC<TransferProps> = ({
+const TransferFunds = ({
   setAddress,
   balance,
   checkBalance,
@@ -25,7 +25,7 @@ const TransferFunds: React.FC<TransferProps> = ({
   setAmount,
   transferFunds,
   txHash,
-}) => {
+}: TransferProps) => {
   const [wallets, setWallets] = useState<ImportedWallet[] | null>(null);
 
   useEffect(() => {
