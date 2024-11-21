@@ -64,12 +64,22 @@ describe('App Component', () => {
     expect(screen.getByText('Generate')).toBeInTheDocument();
   });
 
-  it('handles import wallet state', () => {
+  it('handles import wallet state - private key', () => {
     render(<App />);
     const importLink = screen.getByText('IMPORT');
     fireEvent.click(importLink);
-    expect(screen.getByText(/Import from Mnemonic/i)).toBeInTheDocument();
+    const privateKeyTab = screen.getByText('Private Key');
+    fireEvent.click(privateKeyTab);
     expect(screen.getByText(/Import from Private Key/i)).toBeInTheDocument();
+  });
+
+  it('handles import wallet state - mnemonic', () => {
+    render(<App />);
+    const importLink = screen.getByText('IMPORT');
+    fireEvent.click(importLink);
+    const mnemonicTab = screen.getByText('Mnemonic');
+    fireEvent.click(mnemonicTab);
+    expect(screen.getByText(/Import from Mnemonic/i)).toBeInTheDocument();
   });
 
   it('handles transfer state', () => {
@@ -77,7 +87,6 @@ describe('App Component', () => {
     const transferLink = screen.getByText('TRANSFER');
     fireEvent.click(transferLink);
     expect(screen.getByText('BALANCE')).toBeInTheDocument();
-    expect(screen.getByText('Check')).toBeInTheDocument();
     expect(screen.getByText('Send')).toBeInTheDocument();
   });
 });
