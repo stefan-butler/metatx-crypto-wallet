@@ -12,6 +12,11 @@ describe('ImportWallet Component', () => {
   const mockTransferFunds = vi.fn();
   const mockSetAmount = vi.fn();
 
+  const mockWallets = [
+    { name: 'Wallet 1', address: '0x12345' },
+    { name: 'Wallet 2', address: '0x67890' },
+  ];
+
   const props = {
     address: '',
     setAddress: mockSetAddress,
@@ -28,20 +33,16 @@ describe('ImportWallet Component', () => {
 
   it('renders correctly', () => {
     render(<TransferFunds {...props} />);
-    expect(screen.getByPlaceholderText('Sender Address')).toBeInTheDocument();
-    expect(
-      screen.getByPlaceholderText('Recipient Address')
-    ).toBeInTheDocument();
+    expect(screen.getByText('Choose a wallet')).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('Recipient Address')).toBeInTheDocument();
     expect(screen.getByPlaceholderText('Amount (ETH)')).toBeInTheDocument();
   });
 
-  it('calls setAddress on sender address input change', () => {
+  it('creates a dropdown list correctly', () => {
     render(<TransferFunds {...props} />);
-    const senderInput = screen.getByPlaceholderText('Sender Address');
-
-    fireEvent.change(senderInput, { target: { value: 'lol testing' } });
-    expect(mockSetAddress).toHaveBeenCalledWith('lol testing');
-  });
+    const dropdown = screen.getAllByRole('combobox');
+    expect(dropdown).toBeInTheDocument;
+  })
 
   it('calls setRecipient on Recipient Address input change', () => {
     render(<TransferFunds {...props} />);
@@ -57,14 +58,6 @@ describe('ImportWallet Component', () => {
 
     fireEvent.change(amountInput, { target: { value: 'lol testing1' } });
     expect(mockSetAmount).toHaveBeenCalledWith('lol testing1');
-  });
-
-  it('calls CheckBalance on button click', () => {
-    render(<TransferFunds {...props} />);
-    const button = screen.getByText('Check');
-
-    fireEvent.click(button);
-    expect(mockCheckBalance).toHaveBeenCalled();
   });
 
   it('calls transferFunds on button click', () => {
