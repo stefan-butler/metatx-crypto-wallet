@@ -9,14 +9,14 @@ export interface ImportedWallet extends Wallet {
 }
 
 export interface Transaction {
-  sender: string,
-  recipient: string,
-  amount: string,
-  transactionHash: string,
-  status: string,
-  errorMessage: string,
-  createdAt: Date,
-  name?: String
+  sender: string;
+  recipient: string;
+  amount: string;
+  transactionHash: string;
+  status: string;
+  errorMessage: string;
+  createdAt: Date;
+  name?: String;
 }
 
 export type MessageType = 'CHECK_BALANCE' | 'TRANSFER_FUNDS';
@@ -26,6 +26,7 @@ export interface Message {
   address?: string;
   recipient?: string;
   amount?: string;
+  error?: Error;
 }
 
 export interface BalanceResponse {
@@ -37,6 +38,6 @@ export interface BalanceResponse {
 
 export interface TransferResponse {
   message?: string;
-  txHash?: string;
+  txHash?: any;
   error?: string;
 }
