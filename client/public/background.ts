@@ -1,6 +1,7 @@
+import { MessageType, Message, BalanceResponse, TransferResponse } from '../src/types'
 console.log("Service Worker loaded"); // console.log #1
 
-chrome.runtime.onMessage.addListener( (message, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener((message: Message, sender: chrome.runtime.MessageSender, sendResponse: (response: BalanceResponse | TransferResponse) => void): boolean => {
     const { type, address, recipient, amount } = message;
 
     if (type === 'CHECK_BALANCE') {
@@ -9,12 +10,12 @@ chrome.runtime.onMessage.addListener( (message, sender, sendResponse) => {
                 if (!response.ok) throw new Error(`Error: ${response.status}`);
                 return response.json();
             })
-            .then(data => {
-                sendResponse({ balance: data.balance });
+            .then((data: { balance: string }) => {
+                sendResponse({ balance: data.balance } as BalanceResponse);
             })
             .catch(error => {
                 console.error("Error fetching balance:", error);
-                sendResponse({ error: "Failed to fetch balance." });
+                sendResponse({ error: "Failed to fetch balance." } as BalanceResponse);
             });
         } else if (type === 'TRANSFER_FUNDS') {
             console.log("Sending request to transfer funds...");
@@ -30,11 +31,11 @@ chrome.runtime.onMessage.addListener( (message, sender, sendResponse) => {
                 })
                 .then(data => {
                     console.log("Parsed transfer response data:", data);
-                    sendResponse({ message: data.message, txHash: data.txHash });
+                    sendResponse({ message: data.message, txHash: data.txHash } as TransferResponse);
                 })
                 .catch(error => {
                     console.error("Transfer error:", error);
-                    sendResponse({ error: "Transfer failed." });
+                    sendResponse({ error: "Transfer failed." } as TransferResponse);
                 });
         }
     return true;
